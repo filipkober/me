@@ -1,0 +1,80 @@
+/* Main editor container background */
+.rdw-editor-main {
+    background-color: #1a1a1a;
+    color: #ffffff;
+  }
+  
+  /* Toolbar background and icons */
+  .rdw-editor-toolbar {
+    background-color: #2d2d2d;
+    border-color: #404040;
+    color: #ffffff;
+  }
+  
+  /* Image positioning menu and other dropdowns */
+  .rdw-dropdown-wrapper {
+    background-color: #2d2d2d;
+    border-color: #404040;
+  }
+  
+  .rdw-dropdown-optionwrapper {
+    background-color: #2d2d2d;
+    border-color: #404040;
+  }
+  
+  .rdw-dropdown-carettoopen, 
+  .rdw-dropdown-carettoclose {
+    border-top-color: #ffffff;
+  }
+  
+  /* Option text color */
+  .rdw-option-wrapper {
+    background-color: #2d2d2d;
+    border-color: #404040;
+  }
+  
+  .rdw-option-wrapper img {
+    filter: invert(1);
+  }
+  
+  .rdw-option-active {
+    background-color: #404040;
+  }
+
+  .rdw-dropdownoption-active {
+    color: #1a1a1a;
+  }
+  
+  /* Code block styling */
+  .rdw-code-block {
+    background-color: #2d2d2d;
+    color: #ffffff;
+  }
+  
+  pre {
+    background-color: #2d2d2d !important;
+    color: #ffffff !important;
+  }
+  
+  /* Dropdown options hover state */
+  .rdw-dropdown-optionwrapper:hover {
+    box-shadow: 1px 1px 0px #404040;
+    background-color: #404040;
+  }
+  
+  .rdw-option-wrapper:hover {
+    box-shadow: 1px 1px 0px #404040;
+    background-color: #404040;
+  }
+
+  .rdw-dropdown-wrapper:hover .rdw-dropdown-selectedtext {
+    color: #1a1a1a;
+  }
+
+  .rdw-dropdownoption-default:hover {
+    color: #1a1a1a;
+  }
+
+  span[style*="font-family: monospace"] span {
+    color: black;
+}
