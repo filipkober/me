@@ -14,6 +14,9 @@ model Post {
   date DateTime @default(now())
   authorId String @db.ObjectId
   author User @relation(fields: [authorId], references: [id])
+  tagIDs String[] @db.ObjectId
+  tags Tag[] @relation(fields: [tagIDs], references: [id])
+  image String?
 }
 
 model User {
@@ -23,4 +26,14 @@ model User {
   password String
   posts Post[]
   admin Boolean @default(false)
+}
+
+model Tag {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  name String
+  specialStyle String?
+  specialStyleToggled String?
+  description String?
+  postIDs String[] @db.ObjectId
+  posts Post[] @relation(fields: [postIDs], references: [id])
 }
