@@ -40,7 +40,16 @@ export default function CreateTags() {
         if (newTag.error) {
             alert(newTag.error);
         } else {
-            setTags([...tags, newTag.tag as TagType]);
+
+            const newCreatedTag: TagType = {
+                id: newTag.tag!.id,
+                name: newTag.tag!.name,
+                description: newTag.tag?.description || undefined,
+                style: newTag.tag?.specialStyle || undefined,
+                styleToggled: newTag.tag?.specialStyleToggled || undefined,
+            }
+
+            setTags([...tags, newCreatedTag]);
             setPreviewTagName("");
             setPreviewTagDescription("");
             setStyleText("");

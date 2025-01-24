@@ -1,0 +1,12 @@
+.filepond--panel-root {
+    background-color: hsl(var(--background));
+}
+
+.filepond--panel-root {
+    border-width: 1px;
+    border-color: hsl(var(--input));
+}
+
+.filepond--drop-label {
+    color: white;
+}

@@ -10,13 +10,14 @@ datasource db {
 model Post {
   id String @id @default(auto()) @map("_id") @db.ObjectId
   title String
+  description String
+  image String
   content String
   date DateTime @default(now())
   authorId String @db.ObjectId
   author User @relation(fields: [authorId], references: [id])
   tagIDs String[] @db.ObjectId
   tags Tag[] @relation(fields: [tagIDs], references: [id])
-  image String?
 }
 
 model User {
