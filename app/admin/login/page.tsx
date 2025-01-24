@@ -6,6 +6,7 @@ import { Label } from "@/components/ui/label";
 import { FormEvent } from "react";
 import { getSession, signIn } from "next-auth/react";
 import { redirect, useSearchParams } from "next/navigation";
+import Link from "next/link";
 
 const LoginPage = () => {
   const searchParams = useSearchParams();
@@ -34,7 +35,7 @@ const LoginPage = () => {
 
   return (
     <div className="w-screen h-screen flex flex-col items-center justify-center">
-      <h1 className="text-2xl mb-8">Login</h1>
+      <h1 className="text-2xl mb-8"><Link href={'/'} className="mr-[1ch]">&lt;</Link>Login</h1>
       <form onSubmit={handleSubmit} className="flex flex-col gap-4">
         <Label htmlFor="email">Email</Label>
         <Input type="email" name="email" placeholder="Email" />

@@ -14,6 +14,7 @@ import { Label } from "@/components/ui/label";
 import BlogPost from "@/components/BlogPost";
 import { Textarea } from "@/components/ui/textarea";
 import ImageUpload from "@/components/ImageUpload";
+import Link from "next/link";
 
 const dateOptions: Intl.DateTimeFormatOptions = {
   year: "numeric",
@@ -70,7 +71,7 @@ export default function Page() {
   return (
     <div className="w-screen h-screen flex items-center mt-8 flex-col">
       <div className="container my-4">
-        <h1 className="text-center font-bold text-4xl my-4">New Blog Post</h1>
+        <h1 className="text-center font-bold text-4xl my-4"><Link href={'/admin'} className="mr-[1ch]">&lt;</Link>New Blog Post</h1>
         <Label htmlFor="title">Title</Label>
         <Input
           placeholder="Title"

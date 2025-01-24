@@ -17,7 +17,7 @@ export default function Home() {
 
   return (
     <div className="w-screen h-screen relative p-16">
-      <h1 className="text-6xl text-center mb-12">Filip Kober {loggedIn && <span>⭐</span>}</h1>
+      <h1 className="text-6xl text-center mb-12">Filip Kober {loggedIn && <Link href={'/admin'}>⭐</Link>}</h1>
       <div className="grid columns-3">
       <div className="col-start-1 flex justify-center flex-col gap-64 relative">
         <Link href={'./about'}><h1 className="text-4xl font-bold text-right absolute left-[22vw] bottom-[30vw] text-nowrap">About Me</h1></Link>

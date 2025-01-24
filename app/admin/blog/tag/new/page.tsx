@@ -9,6 +9,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { TagType } from "@/types/Tag";
 import { useEffect, useState } from "react";
 import { createTag, fetchTags } from "./actions";
+import Link from "next/link";
 
 export default function CreateTags() {
 
@@ -60,7 +61,7 @@ export default function CreateTags() {
 
     return (
         <div className="container mx-auto flex flex-col items-center mt-8">
-            <h1 className="text-4xl">Create a new tag</h1>
+            <h1 className="text-4xl"><Link href={'/admin'} className="mr-[1ch]">&lt;</Link>Create a new tag</h1>
             <form className="flex flex-col gap-4 lg:w-1/4 mb-8" onSubmit={onSubmit}>
                 <Label htmlFor="name">Name</Label>
                 <Input type="text" id="name" name="name" value={previewTagName} onChange={e => setPreviewTagName(e.target.value)} />
