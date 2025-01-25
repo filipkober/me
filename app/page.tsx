@@ -21,7 +21,7 @@ export default function Home() {
       <div className="grid columns-3">
       <div className="col-start-1 flex justify-center flex-col gap-64 relative">
         <Link href={'./about'}><h1 className="text-4xl font-bold text-right absolute left-[22vw] bottom-[30vw] text-nowrap">About Me</h1></Link>
-        <h1 className="text-4xl font-bold text-right absolute cursor-not-allowed left-[20vw] text-nowrap">Blog</h1>
+        <h1 className="text-4xl font-bold text-right absolute left-[20vw] text-nowrap"><Link href={'./blog'}>Blog</Link></h1>
         <h1 className="text-4xl font-bold text-right absolute cursor-not-allowed left-[22vw] top-[30vw] text-nowrap">Portfolio</h1>
       </div>
       <div className="flex justify-center items-center col-start-2">

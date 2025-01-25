@@ -1,14 +1,13 @@
 "use server"
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { TagType } from "@/types/Tag";
-import { PrismaClient } from "@prisma/client";
+import { prisma } from "@/util/prisma";
 import { getServerSession } from "next-auth/next";
 
-const prisma = new PrismaClient();
-
-export async function fetchTags() {
+export async function getTags() {
 
     const tags = await prisma.tag.findMany();
+
     return tags.map(tag => {
         return {
             name: tag.name,

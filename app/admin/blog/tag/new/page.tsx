@@ -8,7 +8,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { TagType } from "@/types/Tag";
 import { useEffect, useState } from "react";
-import { createTag, fetchTags } from "./actions";
+import { createTag, getTags } from "./actions";
 import Link from "next/link";
 
 export default function CreateTags() {
@@ -22,7 +22,7 @@ export default function CreateTags() {
     const [tags, setTags] = useState<TagType[]>([]);
 
     useEffect(() => {
-        fetchTags().then(tags => setTags(tags));
+        getTags().then(tags => setTags(tags));
     }, []);
 
     const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
