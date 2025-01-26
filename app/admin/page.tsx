@@ -2,8 +2,8 @@ import Link from "next/link";
 
 export default function AdminPage() {
     return (
-        <div className="w-screen min-h-screen flex items-center mt-8 flex-col gap-2">
-            <h1 className="font-bold text-5xl"><Link href={'/'} className="mr-[1ch]">&lt;</Link>Admin Page</h1>
+        <div className="w-screen flex items-center pt-8 flex-col gap-2">
+            <h1 className="font-bold text-5xl">Admin Page</h1>
             <h2 className="text-3xl">Links:</h2>
             <ul className="list-disc text-xl">
                 <li><Link href="/admin/blog/post/new" className="text-blue-500 underline">Create a new blog post</Link></li>

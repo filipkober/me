@@ -1,4 +1,5 @@
 import type { NextConfig } from "next";
+import { version, dependencies } from "./package.json";
 
 const nextConfig: NextConfig = {
   /* config options here */
@@ -13,6 +14,10 @@ const nextConfig: NextConfig = {
         hostname: "i.imgur.com",
       },
     ]
+  },
+  publicRuntimeConfig: {
+    version,
+    nextVersion: dependencies.next,
   }
 };
 

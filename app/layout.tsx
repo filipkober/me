@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
+import 'quill/dist/quill.snow.css';
+import NavBreadcrumbs from "@/components/NavBreadcrumbs";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -33,7 +35,12 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        <div className="min-h-screen">
+          {children}
+          <div className="fixed bottom-2 flex w-full pr-12 sm:pr-10 lg:pr-4 z-30">
+            <NavBreadcrumbs className="ml-auto"/>
+        </div>
+        </div>
       </body>
     </html>
   );

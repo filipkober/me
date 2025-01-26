@@ -4,15 +4,14 @@ import { Suspense } from "react";
 import ServerTags from "@/components/ServerTags";
 import ServerPosts from "@/components/ServerPosts";
 import { Skeleton } from "@/components/ui/skeleton";
-import Link from "next/link";
 
 export default function Blog({searchParams}: {searchParams?: { [key: string]: string | string[] | undefined}}) {
 
     const tags = searchParams?.tags ? (searchParams.tags as string).split(',') : undefined;
 
     return (
-        <div className="container mx-auto mt-8 pb-8 px-2">
-            <h1 className="text-5xl text-center"><Link href={'/'} className="mr-[1ch]">&lt;</Link>Blog</h1>
+        <div className="container mx-auto pt-8 pb-8 px-2">
+            <h1 className="text-5xl text-center">Blog</h1>
 
             <form className="flex gap-2 lg:w-1/2 mx-auto mt-8" method="GET">
                 <Input placeholder="Search by title, description..." name="search" />

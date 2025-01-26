@@ -1,10 +1,5 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
-import { Editor } from "react-draft-wysiwyg";
-import { EditorState, convertToRaw, convertFromRaw } from "draft-js";
-import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
-import "./editor-dark-mode.css";
-import draftToHtml from "draftjs-to-html";
 import { Button } from "@/components/ui/button";
 import { TagType } from "@/types/Tag";
 import { getTags } from "../../tag/new/actions";
@@ -14,10 +9,12 @@ import { Label } from "@/components/ui/label";
 import BlogPost from "@/components/BlogPost";
 import { Textarea } from "@/components/ui/textarea";
 import ImageUpload from "@/components/ImageUpload";
-import Link from "next/link";
 import { createBlogPost } from "./actions";
 import { z } from "zod";
 import { SmallPostType } from "@/types/Post";
+import { useQuill } from 'react-quilljs';
+import Quill from "quill";
+// import { registerQuill } from "@/util/quillRegister";
 
 const date = new Date();
 
@@ -30,9 +27,7 @@ const newBlogPostSchema = z.object({
 })
 
 export default function Page() {
-  const [editorState, setEditorState] = useState(() =>
-    EditorState.createEmpty()
-  );
+  const [html, setHtml] = useState<string>("");
   const [tags, setTags] = useState<TagType[]>([]);
   const [selectedTags, setSelectedTags] = useState<TagType[]>([]);
 
@@ -40,27 +35,34 @@ export default function Page() {
   const [description, setDescription] = useState<string>("");
   const [image, setImage] = useState<Blob>();
 
-  const editorStateRef = useRef(editorState);
+  const { quill, quillRef } = useQuill();
+  const editorStateRef = useRef<Quill>(undefined);
+  const htmlRef = useRef<string>(html);
 
   useEffect(() => {
-    editorStateRef.current = editorState;
-  }, [editorState]);
+    if(quill) {
+      quill.root.innerHTML = htmlRef.current;
+      editorStateRef.current = quill;
+      quill.on('text-change', () => {
+        setHtml(quill.root.innerHTML);
+      });
+    }
+  }, [quill]);
 
   useEffect(() => {
     getTags().then((tags) => setTags(tags));
 
     const draft = localStorage.getItem("draft");
     if (draft) {
-      const newState = EditorState.createWithContent(
-        convertFromRaw(JSON.parse(draft))
-      );
-      setEditorState(newState);
+      const parsed = JSON.parse(draft);
+      htmlRef.current = parsed
+      setHtml(parsed);
     }
 
     function handleBeforeUnload() {
       localStorage.setItem(
         "draft",
-        JSON.stringify(convertToRaw(editorStateRef.current.getCurrentContent()))
+        JSON.stringify(editorStateRef.current?.root.innerHTML)
       );
     }
 
@@ -71,8 +73,6 @@ export default function Page() {
   }, []);
 
   const previewRef = useRef<HTMLDivElement>(null);
-
-  const html = draftToHtml(convertToRaw(editorState.getCurrentContent()));
 
   const onSubmit = async () => {
 
@@ -105,9 +105,9 @@ export default function Page() {
   }
 
   return (
-    <div className="w-screen h-screen flex items-center mt-8 flex-col">
+    <div className="w-screen flex items-center pt-8 flex-col pb-10 px-2 md:px-0 md:pb-4">
       <div className="container my-4">
-        <h1 className="text-center font-bold text-4xl my-4"><Link href={'/admin'} className="mr-[1ch]">&lt;</Link>New Blog Post</h1>
+        <h1 className="text-center font-bold text-4xl my-4">New Blog Post</h1>
         <Label htmlFor="title">Title</Label>
         <Input
           placeholder="Title"
@@ -123,12 +123,9 @@ export default function Page() {
           onChange={(e) => setDescription(e.target.value)}
         />
         <ImageUpload className="mb-8" fileChanged={setImage} />
-        <Editor
-          editorState={editorState}
-          onEditorStateChange={setEditorState}
-          toolbarClassName="text-black"
-          editorClassName="border border-gray-300 p-4"
-        />
+        <div>
+          <div ref={quillRef} />
+        </div>
         <h2 className="font-bold text-2xl my-4">Tags</h2>
         <TagGroup
           selectedTags={selectedTags}
@@ -146,7 +143,7 @@ export default function Page() {
         <div
           ref={previewRef}
           dangerouslySetInnerHTML={{ __html: html }}
-          className="border border-gray-300 p-4 mb-4"
+          className="border border-gray-300 p-4 mb-4 ql-editor"
         />
         <Button onClick={onSubmit} className="my-4">
           Publish

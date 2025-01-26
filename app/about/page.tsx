@@ -20,7 +20,7 @@ const AboutMe = () => {
     return (
         <div className="flex items-center flex-col mb-16">
             <h1 className="mt-8 text-5xl mb-8">About Me</h1>
-            <p>Hi! My name is Filip Kober and I&apos;m a{n && "n"} {myAge} year old software developer from Poland 🇵🇱</p>
+            <p className="lg:max-w-[25%] max-w-[80%] text-wrap">Hi! My name is Filip Kober and I&apos;m a{n && "n"} {myAge} year old software developer from Poland 🇵🇱</p>
             <h2 className="mt-8 text-4xl mb-8">What is this page?</h2>
             <p className="lg:max-w-[25%] max-w-[80%] text-wrap">
                 It&apos;s my own little place on the internet, where I upload whatever I feel like uploading. <br/>

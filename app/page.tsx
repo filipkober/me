@@ -1,36 +1,29 @@
-"use client"
-
 import Boids from "@/components/Boids";
-import { getSession } from "next-auth/react";
+import { getServerSession } from "next-auth/next";
 import Link from "next/link";
-import { useState } from "react";
+import { authOptions } from "./api/auth/[...nextauth]/route";
 
-export default function Home() {
+export default async function Home() {
 
-  const [loggedIn, setLoggedIn] = useState(false);
-
-  getSession().then(session => {
-    if (session) {
-      setLoggedIn(true);
-    }
-  });
+  const session = await getServerSession(authOptions);
+  const loggedIn = session?.user.admin ? true : false
 
   return (
     <div className="w-screen h-screen relative p-16">
       <h1 className="text-6xl text-center mb-12">Filip Kober {loggedIn && <Link href={'/admin'}>⭐</Link>}</h1>
-      <div className="grid columns-3">
-      <div className="col-start-1 flex justify-center flex-col gap-64 relative">
-        <Link href={'./about'}><h1 className="text-4xl font-bold text-right absolute left-[22vw] bottom-[30vw] text-nowrap">About Me</h1></Link>
-        <h1 className="text-4xl font-bold text-right absolute left-[20vw] text-nowrap"><Link href={'./blog'}>Blog</Link></h1>
-        <h1 className="text-4xl font-bold text-right absolute cursor-not-allowed left-[22vw] top-[30vw] text-nowrap">Portfolio</h1>
+      <div className="sm:grid sm:columns-3 md:mt-[20vh] lg:mt-0">
+      <div className="sm:col-start-1 flex justify-center flex-col gap-4 sm:gap-64 relative">
+        <Link href={'./about'}><h1 className="text-4xl font-bold sm:text-right sm:absolute lg:left-[22vw] sm:bottom-[30vw] text-nowrap text-center">About Me</h1></Link>
+        <h1 className="text-4xl font-bold sm:text-right sm:absolute lg:left-[20vw] text-nowrap text-center"><Link href={'./blog'}>Blog</Link></h1>
+        <h1 className="text-4xl font-bold sm:text-right sm:absolute cursor-not-allowed lg:left-[22vw] sm:top-[30vw] text-nowrap text-center"><Link href={'./portfolio'}>Portfolio</Link></h1>
       </div>
-      <div className="flex justify-center items-center col-start-2">
+      <div className="sm:flex justify-center items-center col-start-2 hidden">
         <Boids />
       </div>
-      <div className="col-start-3 flex justify-center flex-col gap-64 relative">
-        <h1 className="text-4xl font-bold text-left absolute cursor-not-allowed right-[22vw] bottom-[30vw] text-nowrap">Fun</h1>
-        <h1 className="text-4xl font-bold text-left absolute cursor-not-allowed right-[20vw] text-nowrap">Tools</h1>
-        <h1 className="text-4xl font-bold text-left absolute cursor-not-allowed right-[22vw] top-[30vw] text-nowrap">Secrets</h1>
+      <div className="sm:col-start-3 flex justify-center flex-col gap-4 sm:gap-64 relative">
+        <h1 className="text-4xl font-bold sm:text-left sm:absolute cursor-not-allowed lg:right-[22vw] sm:bottom-[30vw] text-nowrap text-center">Fun</h1>
+        <h1 className="text-4xl font-bold sm:text-left sm:absolute cursor-not-allowed lg:right-[20vw] text-nowrap text-center">Tools</h1>
+        <h1 className="text-4xl font-bold sm:text-left sm:absolute cursor-not-allowed lg:right-[22vw] sm:top-[30vw] text-nowrap text-center">Secrets</h1>
       </div>
     </div>
     </div>
