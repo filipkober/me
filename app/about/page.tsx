@@ -60,11 +60,8 @@ const AboutMe = () => {
                 <Link href={"https://github.com/filipkober"} target="_blank"><Image src={github} alt={"GitHub logo"} width={48} /></Link>
                 <Link href={"https://www.linkedin.com/in/filip-kober/"} target="_blank"><Image src={linkedin} alt={"LinkedIn logo"} width={48} /></Link>
             </div>
-            <p className="lg:max-w-[25%] max-w-[80%] text-wrap mb-8">
+            <p className="lg:max-w-[25%] max-w-[80%] text-wrap mb-4">
                 Or just email me at: <Link href={"mailto:koberfilip2@gmail.com"} className="font-bold">koberfilip2@gmail.com</Link>
-            </p>
-            <p className="lg:max-w-[25%] max-w-[80%] mt-auto pb-4">
-                <Link href={"/"} className="font-bold">back to the Home Page</Link>
             </p>
         </div>
     )

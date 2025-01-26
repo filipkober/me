@@ -81,7 +81,7 @@ export default function NigditPage() {
                 </p>
                 <h3 className="text-lg font-bold flex gap-2">Strapi <Image src={strapiLogo} alt="Strapi logo" width={18} height={18}/></h3>
                 <p>
-                    Used for the backend, as a headless CMS. There's a bunch of custom endpoints and services, pretty much all of the backend is custom.
+                    Used for the backend, as a headless CMS. There&apos;s a bunch of custom endpoints and services, pretty much all of the backend is custom.
                 </p>
                 <h3 className="text-lg font-bold flex gap-2">PostgreSQL <Image src={postgresLogo} alt="PostgreSQL logo" width={18} height={18}/></h3>
                 <p>
