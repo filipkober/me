@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
+import { Suspense, useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { TagType } from "@/types/Tag";
 import { getTags } from "../../tag/new/actions";
@@ -14,6 +14,7 @@ import { z } from "zod";
 import { SmallPostType } from "@/types/Post";
 import { useQuill } from 'react-quilljs';
 import Quill from "quill";
+import TagsSkeleton from "@/components/TagsSkeleton";
 // import { registerQuill } from "@/util/quillRegister";
 
 const date = new Date();
@@ -127,11 +128,13 @@ export default function Page() {
           <div ref={quillRef} />
         </div>
         <h2 className="font-bold text-2xl my-4">Tags</h2>
-        <TagGroup
-          selectedTags={selectedTags}
-          setSelectedTags={setSelectedTags}
-          tags={tags}
-        />
+        <Suspense fallback={<TagsSkeleton />}>
+          <TagGroup
+            selectedTags={selectedTags}
+            setSelectedTags={setSelectedTags}
+            tags={tags}
+          />
+        </Suspense>
       </div>
       <div className="container">
         <h1 className="text-center font-bold text-4xl mb-4">Preview</h1>

@@ -3,19 +3,11 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { FormEvent } from "react";
-import { getSession, signIn } from "next-auth/react";
-import { redirect, useSearchParams } from "next/navigation";
+import { FormEvent, Suspense } from "react";
+import { signIn } from "next-auth/react";
+import CallbackRedirector from "@/components/CallbackRedirector";
 
 const LoginPage = () => {
-  const searchParams = useSearchParams();
-
-  getSession().then((session) => {
-    if (session) {
-      const redirectUrl = searchParams.get("callbackUrl") || "/";
-      redirect(redirectUrl);
-    }
-  });
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -34,6 +26,9 @@ const LoginPage = () => {
 
   return (
     <div className="w-screen h-screen flex flex-col items-center justify-center">
+      <Suspense>
+        <CallbackRedirector />
+      </Suspense>
       <h1 className="text-2xl mb-8">Login</h1>
       <form onSubmit={handleSubmit} className="flex flex-col gap-4">
         <Label htmlFor="email">Email</Label>

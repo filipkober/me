@@ -1,7 +1,7 @@
 import Boids from "@/components/Boids";
+import { authOptions } from "@/types/authOptions";
 import { getServerSession } from "next-auth/next";
 import Link from "next/link";
-import { authOptions } from "./api/auth/[...nextauth]/route";
 
 export default async function Home() {
 

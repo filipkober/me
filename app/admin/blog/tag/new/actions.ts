@@ -1,5 +1,5 @@
 "use server"
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { authOptions } from "@/types/authOptions";
 import { TagType } from "@/types/Tag";
 import { prisma } from "@/util/prisma";
 import { getServerSession } from "next-auth/next";

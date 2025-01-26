@@ -2,9 +2,9 @@
 
 import { PostImageResponse } from "@/types/Imgur";
 import { getServerSession } from "next-auth/next";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { PostType, prismaPostToPostType, prismaPostToSmallPostType, SmallPostType } from "@/types/Post";
 import { prisma } from "@/util/prisma";
+import { authOptions } from "@/types/authOptions";
 
 const uploadImage = async ({
   image,

@@ -7,8 +7,9 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { TagType } from "@/types/Tag";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { createTag, getTags } from "./actions";
+import TagsSkeleton from "@/components/TagsSkeleton";
 
 export default function CreateTags() {
 
@@ -75,7 +76,9 @@ export default function CreateTags() {
                 <Button type="submit">Create Tag</Button>
             </form>
             <h1 className="text-4xl mb-8">All tags</h1>
-            <TagGroup tags={tags} selectedTags={selectedTags} setSelectedTags={setSelectedTags} />
+            <Suspense fallback={<TagsSkeleton />}>
+                <TagGroup tags={tags} selectedTags={selectedTags} setSelectedTags={setSelectedTags} />
+            </Suspense>
         </div>
     );
 }

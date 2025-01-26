@@ -4,8 +4,12 @@ import { Suspense } from "react";
 import ServerTags from "@/components/ServerTags";
 import ServerPosts from "@/components/ServerPosts";
 import { Skeleton } from "@/components/ui/skeleton";
+import TagsSkeleton from "@/components/TagsSkeleton";
 
-export default function Blog({searchParams}: {searchParams?: { [key: string]: string | string[] | undefined}}) {
+export default async function Blog(
+    props: {searchParams?: Promise<{ [key: string]: string | string[] | undefined}>}
+) {
+    const searchParams = await props.searchParams;
 
     const tags = searchParams?.tags ? (searchParams.tags as string).split(',') : undefined;
 
@@ -18,12 +22,7 @@ export default function Blog({searchParams}: {searchParams?: { [key: string]: st
                 <Button className="btn" type="submit">Search</Button>
             </form>
             <Suspense fallback={
-                <div className="flex gap-4 lg:w-1/2 mx-auto mt-4 flex-wrap">
-                    <Skeleton className="rounded-full w-[8em] h-8" />
-                    <Skeleton className="rounded-full w-[4em] h-8" />
-                    <Skeleton className="rounded-full w-[6em] h-8" />
-                    <Skeleton className="rounded-full w-[4em] h-8" />
-                </div>
+                <TagsSkeleton />
             }>
                 <ServerTags />
             </Suspense>
