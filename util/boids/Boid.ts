@@ -1,5 +1,5 @@
 import Color from "../Color";
-import Vector from "./Vector";
+import Vector from "../Vector";
 
 export default class Boid {
 
