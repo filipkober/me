@@ -1,19 +1,18 @@
 import Color from "../Color";
+import Vector from "../Vector";
 import CanvasObject from "./CanvasObject";
 
 export interface PhysicsObjectProps {
-    x: number;
-    y: number;
+    coordinates: Vector;
     width: number;
     height: number;
     color: Color;
     context: CanvasRenderingContext2D;
-    xVelocity?: number;
-    yVelocity?: number;
+    velocity?: Vector;
     hasGravity?: boolean;
     weight?: number;
     friction?: number;
-}
+};
 
 const STOP_MOVEMENT_THRESHOLD = 0.5;
 const STOP_BOUNCE_THRESHOLD = 1;
@@ -21,8 +20,7 @@ const STOP_BOUNCE_THRESHOLD = 1;
 type CallbackName = 'afterMove' | 'afterGravity' | 'afterBounce' | 'afterFriction';
 
 abstract class PhysicsObject extends CanvasObject {
-    protected xVelocity: number;
-    protected yVelocity: number;
+    protected velocity: Vector;
     protected hasGravity: boolean;
     protected weight: number;
     protected friction: number;
@@ -31,10 +29,9 @@ abstract class PhysicsObject extends CanvasObject {
     private afterBounce: Array<() => void> = [];
     private afterFriction: Array<() => void> = [];
 
-    constructor({ x, y, width, height, color, context, xVelocity = 0, yVelocity = 0, hasGravity = true, weight = 0.1, friction = 1 }: PhysicsObjectProps) {
-        super({ x, y, width, height, color, context });
-        this.xVelocity = xVelocity;
-        this.yVelocity = yVelocity;
+    constructor({coordinates, width, height, color, context, velocity = Vector.zero(), hasGravity = true, weight = 0.1, friction = 1 }: PhysicsObjectProps) {
+        super({ coordinates, width, height, color, context });
+        this.velocity = velocity;
         this.hasGravity = hasGravity;
         this.weight = weight;
         this.friction = friction;
@@ -54,28 +51,28 @@ abstract class PhysicsObject extends CanvasObject {
 
     private bounceOffEdges() {
         // Horizontal collisions
-        if (this.x + this.width > this.context.canvas.width) {
-            this.x = this.context.canvas.width - this.width;
-            this.xVelocity *= -1;
-        } else if (this.x < 0) {
-            this.x = 0;
-            this.xVelocity *= -1;
+        if (this.coordinates.x + this.width > this.context.canvas.width) {
+            this.coordinates.x = this.context.canvas.width - this.width;
+            this.velocity.x *= -1;
+        } else if (this.coordinates.x < 0) {
+            this.coordinates.x = 0;
+            this.velocity.x *= -1;
         }
     
         // Vertical collisions
         // Bottom edge
-        if (this.y + this.height > this.context.canvas.height) {
-            this.y = this.context.canvas.height - this.height; // Correct position
-            if (Math.abs(this.yVelocity) < STOP_BOUNCE_THRESHOLD) {
-                this.yVelocity = 0;
+        if (this.coordinates.y + this.height > this.context.canvas.height) {
+            this.coordinates.y = this.context.canvas.height - this.height; // Correct position
+            if (Math.abs(this.velocity.y) < STOP_BOUNCE_THRESHOLD) {
+                this.velocity.y = 0;
             } else {
-                this.yVelocity *= -1; // Bounce
+                this.velocity.y *= -1; // Bounce
             }
         }
         // Top edge
-        else if (this.y < 0) {
-            this.y = 0; // Correct position
-            this.yVelocity *= -1;
+        else if (this.coordinates.y < 0) {
+            this.coordinates.y = 0; // Correct position
+            this.velocity.y *= -1;
         }
 
         // Call afterBounce callbacks
@@ -83,8 +80,8 @@ abstract class PhysicsObject extends CanvasObject {
     }
 
     private move() {
-        this.x += this.xVelocity;
-        this.y += this.yVelocity;
+        this.coordinates.x += this.velocity.x;
+        this.coordinates.y += this.velocity.y;
 
         // Call afterMove callbacks
         this.afterMove.forEach(callback => callback());
@@ -92,7 +89,7 @@ abstract class PhysicsObject extends CanvasObject {
 
     private gravity() {
         if (this.hasGravity) {
-            this.yVelocity += this.weight;
+            this.velocity.y += this.weight;
         }
 
         // Call afterGravity callbacks
@@ -101,26 +98,26 @@ abstract class PhysicsObject extends CanvasObject {
 
     private applyFriction() {
         // Check if the object is on the ground (touching the bottom of the canvas)
-        const isOnGround = this.y + this.height >= this.context.canvas.height;
+        const isOnGround = this.coordinates.y + this.height >= this.context.canvas.height;
     
         // Apply friction to horizontal movement (x-axis) when on the ground
         if (isOnGround) {
-            if (Math.abs(this.xVelocity) > STOP_MOVEMENT_THRESHOLD * 0.25) {
+            if (Math.abs(this.velocity.x) > STOP_MOVEMENT_THRESHOLD * 0.25) {
                 // Reduce xVelocity by friction (dampen horizontal movement)
-                this.xVelocity -= this.friction * Math.sign(this.xVelocity) * 0.25;
+                this.velocity.x -= this.friction * Math.sign(this.velocity.x) * 0.25;
             } else {
                 // Stop horizontal movement if velocity is below the threshold
-                this.xVelocity = 0;
+                this.velocity.x = 0;
             }
         }
     
         // Optionally, apply friction to vertical movement (y-axis) when on the ground
-        if (isOnGround && Math.abs(this.yVelocity) > STOP_MOVEMENT_THRESHOLD) {
+        if (isOnGround && Math.abs(this.velocity.y) > STOP_MOVEMENT_THRESHOLD) {
             // Reduce yVelocity by friction (dampen vertical movement)
-            this.yVelocity -= this.friction * Math.sign(this.yVelocity);
+            this.velocity.y -= this.friction * Math.sign(this.velocity.y);
         } else if (isOnGround) {
             // Stop vertical movement if velocity is below the threshold
-            this.yVelocity = 0;
+            this.velocity.y = 0;
         }
 
         // Call afterFriction callbacks

@@ -62,4 +62,8 @@ export default class Vector {
     dot(v: Vector): number {
         return this.x * v.x + this.y * v.y;
     }
+
+    static zero(): Vector {
+        return new Vector(0, 0);
+    }
 }

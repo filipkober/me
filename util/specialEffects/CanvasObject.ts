@@ -1,9 +1,9 @@
 import { v4 } from 'uuid';
 import Color from '../Color';
+import Vector from '../Vector';
 
 export interface CanvasObjectProps {
-    x: number;
-    y: number;
+    coordinates: Vector;
     width: number;
     height: number;
     color: Color;
@@ -11,17 +11,15 @@ export interface CanvasObjectProps {
 }
 
 abstract class CanvasObject {
-    protected x: number;
-    protected y: number;
+    protected coordinates: Vector;
     protected width: number;
     protected height: number;
     protected color: Color;
     protected context: CanvasRenderingContext2D;
     public id: string = v4();
 
-    constructor({ x, y, width, height, color, context }: CanvasObjectProps) {
-        this.x = x;
-        this.y = y;
+    constructor({ coordinates, width, height, color, context }: CanvasObjectProps) {
+        this.coordinates = coordinates;
         this.width = width;
         this.height = height;
         this.color = color;

@@ -3,7 +3,13 @@ import CanvasObject from "../specialEffects/CanvasObject";
 // import Ball from "../specialEffects/Ball";
 import Star from "../specialEffects/Star";
 import Vector from "../Vector";
-import Color from "../Color";
+// import Color from "../Color";
+
+export type ShootStarProps = {
+    x: number;
+    y: number;
+    size?: number;
+}
 
 export const useSpecialEffects = () => {
     const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -32,23 +38,21 @@ export const useSpecialEffects = () => {
         }
     }, [getContext]);
 
-    const shootStar = useCallback(({x, y, size = 10}: {x: number, y: number, size?: number}) => {
+    const shootStar = useCallback(({x, y, size = 10}: ShootStarProps) => {
         const ctx = getContext();
         if (!ctx || !canvasRef.current) return;
 
         const randomVector = Vector.random2D();
 
         const star = new Star({
-            x,
-            y,
-            color: new Color(255, 255, 0),
+            coordinates: new Vector(x, y),
             context: ctx,
             height: size,
             width: size,
             points: 5,
-            xVelocity: randomVector.x * 4,
-            yVelocity: randomVector.y * 4,
-            deleteFn: () => removeObject(star.id)
+            velocity: randomVector.mult(4),
+            deleteFn: () => removeObject(star.id),
+            rainbow: true
         });
 
         setTimeout(() => {

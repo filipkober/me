@@ -3,7 +3,6 @@ import localFont from "next/font/local";
 import "./globals.css";
 import 'quill/dist/quill.snow.css';
 import NavBreadcrumbs from "@/components/NavBreadcrumbs";
-import SpecialEffects from "@/components/SpecialEffects";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -40,8 +39,7 @@ export default function RootLayout({
           {children}
           <div className="fixed bottom-2 flex w-full pr-12 sm:pr-10 lg:pr-4 z-30">
             <NavBreadcrumbs className="ml-auto"/>
-        </div>
-        <SpecialEffects />
+          </div>
         </div>
       </body>
     </html>

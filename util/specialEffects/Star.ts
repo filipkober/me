@@ -1,19 +1,19 @@
 import Color from "../Color";
+import Vector from "../Vector";
 import PhysicsObject from "./PhysicsObject";
 
 type StarProps = {
-    x: number;
-    y: number;
+    coordinates: Vector;
     width: number;
     height: number;
-    color: Color;
+    color?: Color;
     context: CanvasRenderingContext2D;
-    xVelocity?: number;
-    yVelocity?: number;
+    velocity: Vector;
     weight?: number;
     hasGravity?: boolean;
     points: number;
     deleteFn?: () => void;
+    rainbow?: boolean;
 }
 
 const threshold = 0.2;
@@ -24,10 +24,12 @@ class Star extends PhysicsObject {
     private rotation: number = 0;
     private opacity: number = 1;
     private deletion_started: boolean = false;
+    private rainbow: boolean;
 
-    constructor({ x, y, width, height, color, context, xVelocity, yVelocity, weight, hasGravity, points, deleteFn }: StarProps) {
-        super({ x, y, width, height, color, context, xVelocity, yVelocity, hasGravity, weight });
+    constructor({ coordinates, width, height, color = Color.rainbowStart(), context, velocity, weight, hasGravity, points, deleteFn, rainbow = false }: StarProps) {
+        super({ coordinates, width, height, color, context, velocity, hasGravity, weight });
         this.points = points;
+        this.rainbow = rainbow;
         this.registerCallback('afterMove', this.rotateAccordingToVelocity.bind(this));
 
         if (deleteFn) {
@@ -37,9 +39,9 @@ class Star extends PhysicsObject {
 
     private rotateAccordingToVelocity() {
         // Adjust rotation based on velocity
-        if (Math.abs(this.xVelocity) > threshold || Math.abs(this.yVelocity) > threshold) {
-            this.rotation += Math.atan2(this.yVelocity, this.xVelocity) * 0.01 * Math.sign(this.xVelocity);
-            this.rotation += 0.05 * Math.sign(this.xVelocity);
+        if (Math.abs(this.velocity.x) > threshold || Math.abs(this.velocity.y) > threshold) {
+            this.rotation += Math.atan2(this.velocity.y, this.velocity.x) * 0.01 * Math.sign(this.velocity.x);
+            this.rotation += 0.05 * Math.sign(this.velocity.x);
         }
         this.rotation %= Math.PI * 2;
     }
@@ -49,8 +51,8 @@ class Star extends PhysicsObject {
     };
 
     private deleteIfTooSlow(deleteFn: () => void) {
-        const magnitude = Math.sqrt(this.xVelocity ** 2 + this.yVelocity ** 2);
-        if (magnitude < speed_threshold && this.yVelocity < 0) {
+        const magnitude = Math.sqrt(this.velocity.x ** 2 + this.velocity.y ** 2);
+        if (magnitude < speed_threshold && this.velocity.y < 0) {
             this.deletion_started = true;
         }
         if (this.deletion_started && this.opacity > 0) {
@@ -62,7 +64,7 @@ class Star extends PhysicsObject {
 
     public draw() {
         this.context.save();
-        this.context.translate(this.x, this.y);
+        this.context.translate(this.coordinates.x, this.coordinates.y);
         this.context.rotate(this.rotation);
         this.context.fillStyle = this.color.toRGBA(this.opacity);
         this.context.globalAlpha = this.opacity;
@@ -76,6 +78,10 @@ class Star extends PhysicsObject {
         this.context.closePath();
         this.context.fill();
         this.context.restore();
+
+        if(this.rainbow) {
+            this.color = this.color.shiftHue(this.velocity.mag());
+        }
     }
 }
 
