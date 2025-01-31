@@ -17,5 +17,5 @@ export default async function BlogPage({
         }
     }
 
-    return <div className="w-screen min-h-screen p-4 ql-editor" dangerouslySetInnerHTML={post ? {__html: post.content} : undefined}></div>
+    return <div className="flex flex-col gap-2" dangerouslySetInnerHTML={post ? {__html: post.content} : undefined}></div>
   }

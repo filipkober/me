@@ -15,6 +15,8 @@ import { SmallPostType } from "@/types/Post";
 import { useQuill } from 'react-quilljs';
 import Quill from "quill";
 import TagsSkeleton from "@/components/TagsSkeleton";
+import Editor from "@/components/Editor";
+import PostPreview from "@/components/PostPreview";
 // import { registerQuill } from "@/util/quillRegister";
 
 const date = new Date();
@@ -124,9 +126,7 @@ export default function Page() {
           onChange={(e) => setDescription(e.target.value)}
         />
         <ImageUpload className="mb-8" fileChanged={setImage} />
-        <div>
-          <div ref={quillRef} />
-        </div>
+        <Editor quillRef={quillRef} />
         <h2 className="font-bold text-2xl my-4">Tags</h2>
         <Suspense fallback={<TagsSkeleton />}>
           <TagGroup
@@ -143,11 +143,7 @@ export default function Page() {
           className="mb-4"
           nolink
         />
-        <div
-          ref={previewRef}
-          dangerouslySetInnerHTML={{ __html: html }}
-          className="border border-gray-300 p-4 mb-4 ql-editor"
-        />
+        <PostPreview html={html} previewRef={previewRef} />
         <Button onClick={onSubmit} className="my-4">
           Publish
         </Button>
