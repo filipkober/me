@@ -17,11 +17,10 @@ export const useSpecialEffects = () => {
 
     const getContext = useCallback(() => {
         if (!canvasRef.current) {
-            console.error("Canvas not found");
             return null;
         }
         return canvasRef.current.getContext("2d");
-    }, []);
+    }, [canvasRef]);
 
     const addObject = useCallback((object: CanvasObject) => {
         objectsRef.current.push(object);

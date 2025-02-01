@@ -33,7 +33,7 @@ export default function Home() {
         <Boids />
       </div>
       <div className="sm:col-start-3 flex justify-center flex-col gap-4 sm:gap-64 relative">
-        <h1 className="text-4xl font-bold sm:text-left sm:absolute lg:right-[22vw] sm:bottom-[30vw] text-nowrap text-center"><StarLink href={"#"} shootStar={shootStar}>Fun</StarLink></h1>
+        <h1 className="text-4xl font-bold sm:text-left sm:absolute lg:right-[22vw] sm:bottom-[30vw] text-nowrap text-center"><StarLink href={"/fun"} shootStar={shootStar}>Fun</StarLink></h1>
         <h1 className="text-4xl font-bold sm:text-left sm:absolute cursor-not-allowed lg:right-[20vw] text-nowrap text-center">Tools</h1>
         <h1 className="text-4xl font-bold sm:text-left sm:absolute cursor-not-allowed lg:right-[22vw] sm:top-[30vw] text-nowrap text-center">Secrets</h1>
       </div>
