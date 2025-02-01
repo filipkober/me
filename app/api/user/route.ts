@@ -1,5 +1,7 @@
+import { getUser } from '@/app/admin/login/actions';
 import { prisma } from '@/util/prisma';
 import bcrypt from 'bcrypt';
+import { NextResponse } from 'next/server';
 
 export async function POST(request: Request) {
     const body = await request.json();
@@ -26,4 +28,10 @@ export async function POST(request: Request) {
 
     return new Response(JSON.stringify(user), { status: 201 });
 
+}
+
+export async function GET() {
+    const user = await getUser();
+    
+    return NextResponse.json(user);
 }

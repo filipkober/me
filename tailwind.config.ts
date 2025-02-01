@@ -58,6 +58,9 @@ export default {
   		},
 		backgroundImage: {
 			'fade-shadow': 'linear-gradient(to bottom, transparent, hsl(var(--background)))',
+		},
+		screens: {
+			'sxl': '1280px'
 		}
   	}
   },
