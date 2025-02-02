@@ -5,15 +5,20 @@ import { RichTextPlugin } from "@lexical/react/LexicalRichTextPlugin";
 import { LexicalErrorBoundary } from "@lexical/react/LexicalErrorBoundary";
 import { ContentEditable } from "@lexical/react/LexicalContentEditable";
 import { EditorThemeClasses } from "lexical";
-import GenerateHtmlPlugin from "./editor/GenerateHtmlPlugin";
 import EditorToolbar from "./editor/EditorToolbar";
+
+import "@/styles/Blog.css"
+import { HeadingNode } from "@lexical/rich-text";
 
 const onError = (error: Error) => {
     console.error("Error in LexicalComposer", error);
 }
 
 const theme: EditorThemeClasses = {
-    
+    text: {
+        strikethrough: "line-through",
+        underline: "underline",
+    }
 }
 
 export default function TextEditor() {
@@ -21,10 +26,9 @@ export default function TextEditor() {
     const initialConfig: InitialConfigType = {
         namespace: "text-editor",
         onError,
-        theme
+        theme,
+        nodes: [HeadingNode]
     }
-
-    
 
   return (
     <div className="min-w-[33%] min-h-[30vh] h-max w-max border-[hsl(var(--border))] border-2">

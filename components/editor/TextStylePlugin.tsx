@@ -1,26 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { Button } from "../ui/button";
-import { cn } from "@/lib/utils";
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 import {
   $getSelection,
   $isRangeSelection,
   FORMAT_TEXT_COMMAND,
-  LexicalEditor,
   TextFormatType,
 } from "lexical";
+import { ToggleGroup } from "../ui/toggle-group";
+import { Toggle } from "../ui/toggle";
 // import { OnChangePlugin } from '@lexical/react/LexicalOnChangePlugin'
-import { TextNode } from "lexical";
-import { splitSelection } from "@/util/editor/selection";
-
-const baseButtonClass = "bg-gray-600 aspect-square rounded-xl";
-
-type ToggledFormats = {
-  bold: boolean;
-  italic: boolean;
-  underline: boolean;
-  lineThrough: boolean;
-};
 
 export default function TextStylePlugin() {
   const [editor] = useLexicalComposerContext();
@@ -30,51 +18,6 @@ export default function TextStylePlugin() {
   const [underlineToggled, setUnderlineToggled] = useState(false);
   const [lineThroughToggled, setLineThroughToggled] = useState(false);
 
-  const boldClassName = cn(baseButtonClass, {
-    "font-bold": true,
-    "bg-primary": boldToggled,
-  });
-  const italicClassName = cn(baseButtonClass, {
-    italic: true,
-    "bg-primary": italicToggled,
-  });
-  const underlineClassName = cn(baseButtonClass, {
-    underline: true,
-    "bg-primary": underlineToggled,
-  });
-  const lineThroughClassName = cn(baseButtonClass, {
-    "line-through": true,
-    "bg-primary": lineThroughToggled,
-  });
-
-  const getFormats = (editor: LexicalEditor): ToggledFormats => {
-    const formats: ToggledFormats = {
-      bold: false,
-      italic: false,
-      underline: false,
-      lineThrough: false,
-    };
-    editor.read(() => {
-      const selection = $getSelection();
-      selection?.getNodes().forEach((node) => {
-        if (node instanceof TextNode) {
-          if (node.hasFormat("bold")) {
-            formats.bold = true;
-          }
-          if (node.hasFormat("italic")) {
-            formats.italic = true;
-          }
-          if (node.hasFormat("underline")) {
-            formats.underline = true;
-          }
-          if (node.hasFormat("strikethrough")) {
-            formats.lineThrough = true;
-          }
-        }
-      });
-    });
-    return formats;
-  };
   const toggleSelectedFormat = (format: TextFormatType) => {
     switch (format) {
       case "bold":
@@ -94,33 +37,48 @@ export default function TextStylePlugin() {
     editor.dispatchCommand(FORMAT_TEXT_COMMAND, format);
   };
 
+  useEffect(() => {
+    return editor.registerUpdateListener(() => {
+      editor.read(() => {
+        const selection = $getSelection();
+        if($isRangeSelection(selection)) {
+          setBoldToggled(selection.hasFormat("bold"));
+          setItalicToggled(selection.hasFormat("italic"));
+          setUnderlineToggled(selection.hasFormat("underline"));
+          setLineThroughToggled(selection.hasFormat("strikethrough"));
+        }
+      })
+    })
+  }, [editor])
+
   return (
-    <div className="flex gap-2">
-      <Button
-        className={boldClassName}
-        onClick={() => toggleSelectedFormat("bold")}
+    <ToggleGroup className="flex w-fit shrink-0 border-[1px]" type="multiple">
+      <Toggle
+        className={"font-bold"}
+        onToggle={() => toggleSelectedFormat("bold")}
       >
         b
-      </Button>
-      <Button
-        className={italicClassName}
-        onClick={() => toggleSelectedFormat("italic")}
+      </Toggle>
+      <Toggle
+        className={"italic"}
+        onToggle={() => toggleSelectedFormat("italic")}
       >
         i
-      </Button>
-      <Button
-        className={underlineClassName}
-        onClick={() => toggleSelectedFormat("underline")}
+      </Toggle>
+      <Toggle
+        className={"underline"}
+        onToggle={() => toggleSelectedFormat("underline")}
       >
         u
-      </Button>
-      <Button
-        className={lineThroughClassName}
-        onClick={() => toggleSelectedFormat("strikethrough")}
+      </Toggle>
+      <Toggle
+        className={"line-through"}
+        onToggle={() => toggleSelectedFormat("strikethrough")}
+
       >
         s
-      </Button>
+      </Toggle>
       {/* <OnChangePlugin onChange={onChange} /> */}
-    </div>
+    </ToggleGroup>
   );
 }
