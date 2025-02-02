@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useGodot } from "@/util/hooks/useGodot";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function WebDemoPage() {
 
@@ -15,7 +15,9 @@ export default function WebDemoPage() {
     }
 
     const { send, iframeRef, addCallback } = useGodot();
-    addCallback(testFn, "clg");
+    useEffect(() => {
+        addCallback(testFn, "clg");
+    }, [addCallback]);
 
     const onClick = () => {
         send(inputText, "set_label");
