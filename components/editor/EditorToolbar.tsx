@@ -1,8 +1,9 @@
 import React from 'react'
 import { ScrollArea, ScrollBar } from '../ui/scroll-area'
-import TextStylePlugin from './TextStylePlugin'
-import HeadingPlugin from './HeadingPlugin'
-import AlignPlugin from './AlignPlugin'
+import TextStylePlugin from './plugins/TextStylePlugin'
+import HeadingPlugin from './plugins/HeadingPlugin'
+import AlignPlugin from './plugins/AlignPlugin'
+import ListPlugin from './plugins/ListPlugin'
 
 export default function EditorToolbar() {
   return (
@@ -11,6 +12,7 @@ export default function EditorToolbar() {
           <TextStylePlugin />
           <HeadingPlugin />
           <AlignPlugin />
+          <ListPlugin />
         </div>
         <ScrollBar orientation='horizontal' />
     </ScrollArea>

@@ -1,8 +1,8 @@
 "use client";
 
 import { AlignCenter, AlignJustify, AlignRight, AlignLeft } from "lucide-react";
-import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
-import { ToggleGroup, ToggleGroupItem } from "../ui/toggle-group";
+import { Popover, PopoverContent, PopoverTrigger } from "../../ui/popover";
+import { ToggleGroup, ToggleGroupItem } from "../../ui/toggle-group";
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 import { $getSelection, $isRangeSelection, ElementFormatType, FORMAT_ELEMENT_COMMAND } from "lexical";
 import { useEffect, useState } from "react";

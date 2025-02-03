@@ -6,9 +6,10 @@ import { LexicalErrorBoundary } from "@lexical/react/LexicalErrorBoundary";
 import { ContentEditable } from "@lexical/react/LexicalContentEditable";
 import { EditorThemeClasses } from "lexical";
 import EditorToolbar from "./editor/EditorToolbar";
+import { HeadingNode } from "@lexical/rich-text";
+import { ListNode, ListItemNode } from "@lexical/list";
 
 import "@/styles/Blog.css"
-import { HeadingNode } from "@lexical/rich-text";
 
 const onError = (error: Error) => {
     console.error("Error in LexicalComposer", error);
@@ -18,6 +19,12 @@ const theme: EditorThemeClasses = {
     text: {
         strikethrough: "line-through",
         underline: "underline",
+    },
+    list: {
+        listitem: "list-inside",
+        ol: "list-decimal",
+        ul: "list-bullet",
+        checklist: "list-image-[--checkmark]",
     }
 }
 
@@ -27,7 +34,7 @@ export default function TextEditor() {
         namespace: "text-editor",
         onError,
         theme,
-        nodes: [HeadingNode]
+        nodes: [HeadingNode, ListNode, ListItemNode]
     }
 
   return (

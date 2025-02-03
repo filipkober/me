@@ -6,8 +6,7 @@ import {
   FORMAT_TEXT_COMMAND,
   TextFormatType,
 } from "lexical";
-import { ToggleGroup } from "../ui/toggle-group";
-import { Toggle } from "../ui/toggle";
+import { Toggle } from "../../ui/toggle";
 // import { OnChangePlugin } from '@lexical/react/LexicalOnChangePlugin'
 
 export default function TextStylePlugin() {
@@ -52,7 +51,7 @@ export default function TextStylePlugin() {
   }, [editor])
 
   return (
-    <ToggleGroup className="flex w-fit shrink-0 border-[1px]" type="multiple">
+    <div className="flex w-fit shrink-0 border-[1px]">
       <Toggle
         className={"font-bold"}
         onToggle={() => toggleSelectedFormat("bold")}
@@ -79,6 +78,6 @@ export default function TextStylePlugin() {
         s
       </Toggle>
       {/* <OnChangePlugin onChange={onChange} /> */}
-    </ToggleGroup>
+    </div>
   );
 }

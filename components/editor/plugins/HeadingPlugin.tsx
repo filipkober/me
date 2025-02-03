@@ -1,7 +1,7 @@
 "use client";
 
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
-import { Select, SelectValue, SelectTrigger, SelectContent, SelectGroup, SelectLabel, SelectItem } from "../ui/select";
+import { Select, SelectValue, SelectTrigger, SelectContent, SelectGroup, SelectLabel, SelectItem } from "../../ui/select";
 import { $getSelection, $createParagraphNode, $isRangeSelection } from "lexical";
 import { $setBlocksType } from "@lexical/selection";
 import { $createHeadingNode, $isHeadingNode, HeadingTagType } from "@lexical/rich-text";
