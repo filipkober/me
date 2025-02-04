@@ -4,6 +4,7 @@ import TextStylePlugin from './plugins/TextStylePlugin'
 import HeadingPlugin from './plugins/HeadingPlugin'
 import AlignPlugin from './plugins/AlignPlugin'
 import ListPlugin from './plugins/ListPlugin'
+import InsertPlugin from './plugins/InsertPlugin'
 
 export default function EditorToolbar() {
   return (
@@ -13,6 +14,7 @@ export default function EditorToolbar() {
           <HeadingPlugin />
           <AlignPlugin />
           <ListPlugin />
+          <InsertPlugin />
         </div>
         <ScrollBar orientation='horizontal' />
     </ScrollArea>

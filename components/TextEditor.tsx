@@ -10,6 +10,7 @@ import { HeadingNode } from "@lexical/rich-text";
 import { ListNode, ListItemNode } from "@lexical/list";
 
 import "@/styles/Blog.css"
+import { ImageNode } from "./editor/nodes/ImageNode";
 
 const onError = (error: Error) => {
     console.error("Error in LexicalComposer", error);
@@ -34,7 +35,7 @@ export default function TextEditor() {
         namespace: "text-editor",
         onError,
         theme,
-        nodes: [HeadingNode, ListNode, ListItemNode]
+        nodes: [HeadingNode, ListNode, ListItemNode, ImageNode]
     }
 
   return (
