@@ -11,6 +11,9 @@ dependencies:
   '@lexical/html':
     specifier: ^0.23.1
     version: 0.23.1
+  '@lexical/list':
+    specifier: ^0.23.1
+    version: 0.23.1
   '@lexical/react':
     specifier: ^0.23.1
     version: 0.23.1(react-dom@19.0.0)(react@19.0.0)(yjs@13.6.23)
