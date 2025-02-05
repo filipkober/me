@@ -3,7 +3,6 @@ import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext
 import { CircleX, Minus, Plus, Scaling } from "lucide-react";
 import Image from "next/image";
 import { useRef, useState, useEffect, Suspense } from "react";
-import { useAutoAnimate } from '@formkit/auto-animate/react';
 
 interface Props {
     src: string;
@@ -36,8 +35,6 @@ export default function ImageNodeComponent({ src, alt, initialWidth, initialHeig
     const currentResizeDirection = useRef<ResizeDirection | null>(null);
     const startPos = useRef({ x: 0, y: 0 });
     const startDimensions = useRef({ width: 0, height: 0 });
-
-    const [parentRef, enableAnimations] = useAutoAnimate({duration: 150});
 
     const removeNode = () => {
         editor.update(() => {
@@ -122,21 +119,12 @@ export default function ImageNodeComponent({ src, alt, initialWidth, initialHeig
             onMouseLeave={() => {
                 setIsHovered(false);
                 setResizing(false);
-                enableAnimations(true);
             }}
-            ref={parentRef}
             >
             {isHovered && <div className="absolute top-2 right-2 bg-[hsl(var(--background))] flex justify-center gap-2 p-2 z-10">
                 <button 
                     className="bg-transparent aspect-square rounded-full p-[2px] my-auto" 
-                    onClick={() => setResizing(isResizing => {
-                        if (isResizing){
-                            enableAnimations(true);
-                            return false;
-                        }
-                        enableAnimations(false);
-                        return true;
-                    })}
+                    onClick={() => setResizing(isResizing => !isResizing)}
                 >
                     <Scaling className="hover:text-[hsl(var(--primary))] duration-200" />
                 </button>

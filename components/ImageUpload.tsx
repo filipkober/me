@@ -10,9 +10,10 @@ registerPlugin(FilePondPluginImagePreview);
 interface ImageUploadProps {
     className?: string;
     fileChanged?: (file: Blob) => void;
+    image?: Blob;
 }
 
-export default function ImageUpload({className, fileChanged}:ImageUploadProps) {
+export default function ImageUpload({className, fileChanged, image}:ImageUploadProps) {
   return <div className={className} >
     <FilePond acceptedFileTypes={["image/*"]} onaddfile={(error, file) => {
         if (error) {
@@ -20,6 +21,8 @@ export default function ImageUpload({className, fileChanged}:ImageUploadProps) {
         } else if(fileChanged) {
             fileChanged(file.file);
         }
-    }} />
+    }} 
+    files={image ? [image] : undefined}
+    />
   </div>
 }

@@ -1,19 +1,56 @@
-import { DropdownMenu, DropdownMenuContent, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
-import { Plus } from 'lucide-react'
-import ImagePlugin from './ImagePlugin'
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { ImagePlus, Plus } from "lucide-react";
+import ImagePlugin from "./ImagePlugin";
+import { Dialog, DialogTrigger } from "@/components/ui/dialog";
+import { useState } from "react";
+import InsertImageDialog from "../dialogs/InsertImageDialog";
 
+export enum InsertMode {
+  Image = "Image",
+}
 
 export default function InsertPlugin() {
+  const [insertMode, setInsertMode] = useState<InsertMode>(InsertMode.Image);
 
+  const dialogBody = ((type: InsertMode) => {
+    switch (type) {
+      case InsertMode.Image:
+        return <InsertImageDialog/>;
+    }
+  })(insertMode);
 
   return (
-    <DropdownMenu>
-        <DropdownMenuTrigger className='flex gap-2 border-[1px] px-2'><span className='my-auto'>Insert</span> <Plus className='my-auto' /></DropdownMenuTrigger>
-        <DropdownMenuContent>
+    <>
+      <Dialog>
+        <DropdownMenu>
+          <DropdownMenuTrigger className="flex gap-2 border-[1px] px-2">
+            <span className="my-auto">Insert</span> <Plus className="my-auto" />
+          </DropdownMenuTrigger>
+          <DropdownMenuContent>
             <DropdownMenuLabel>Component Type</DropdownMenuLabel>
             <DropdownMenuSeparator />
-            <ImagePlugin />
-        </DropdownMenuContent>
-    </DropdownMenu>
-  )
+            <DialogTrigger
+              asChild
+              onClick={() => {
+                setInsertMode(InsertMode.Image);
+              }}
+            >
+              <DropdownMenuItem>
+                <ImagePlus /> Image
+              </DropdownMenuItem>
+            </DialogTrigger>
+          </DropdownMenuContent>
+        </DropdownMenu>
+        {dialogBody}
+      </Dialog>
+      <ImagePlugin />
+    </>
+  );
 }

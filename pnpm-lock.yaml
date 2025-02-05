@@ -101,6 +101,9 @@ dependencies:
   react:
     specifier: ^19.0.0
     version: 19.0.0
+  react-cropper:
+    specifier: ^2.3.3
+    version: 2.3.3(react@19.0.0)
   react-dom:
     specifier: ^19.0.0
     version: 19.0.0(react@19.0.0)
@@ -2149,6 +2152,10 @@ packages:
     engines: {node: '>= 0.6'}
     dev: false
 
+  /cropperjs@1.6.2:
+    resolution: {integrity: sha512-nhymn9GdnV3CqiEHJVai54TULFAE3VshJTXSqSJKa8yXAKyBKDWdhHarnlIPrshJ0WMFTGuFvG02YjLXfPiuOA==}
+    dev: false
+
   /cross-spawn@7.0.6:
     resolution: {integrity: sha512-uV2QOWP2nWzsy2aMp8aRibhi9dlzF5Hgh5SHaB9OiTGEyDTiJJyx0uy51QXdyWbtAHNua4XJzUKca3OzKUd3vA==}
     engines: {node: '>= 8'}
@@ -4038,6 +4045,15 @@ packages:
       lodash-es: 4.17.21
       parchment: 3.0.0
       quill-delta: 5.1.0
+    dev: false
+
+  /react-cropper@2.3.3(react@19.0.0):
+    resolution: {integrity: sha512-zghiEYkUb41kqtu+2jpX2Ntigf+Jj1dF9ew4lAobPzI2adaPE31z0p+5TcWngK6TvmWQUwK3lj4G+NDh1PDQ1w==}
+    peerDependencies:
+      react: '>=17.0.2'
+    dependencies:
+      cropperjs: 1.6.2
+      react: 19.0.0
     dev: false
 
   /react-dom@19.0.0(react@19.0.0):
