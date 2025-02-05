@@ -57,11 +57,15 @@ export class ImageNode extends DecoratorNode<JSX.Element> {
     }
 
     exportDOM(): DOMExportOutput {
-        const element = document.createElement("img");
-        element.setAttribute("src", this.__src);
-        element.setAttribute("alt", this.__alt);
-        element.setAttribute("width", this.__width.toString());
-        element.setAttribute("height", this.__height.toString());
+        const element = document.createElement("div");
+        const img = document.createElement("img");
+        img.setAttribute("src", this.__src);
+        img.setAttribute("alt", this.__alt);
+        img.setAttribute("width", this.__width.toString());
+        img.setAttribute("height", this.__height.toString());
+
+        element.appendChild(img);
+        
         return { element };
     }
 

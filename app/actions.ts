@@ -10,7 +10,7 @@ export const uploadImage = async ({
     image: Blob;
     title: string;
     description: string;
-  }): Promise<string> => {
+  }): Promise<PostImageResponse> => {
     const headers = new Headers();
     headers.append("Authorization", `Client-ID ${process.env.IMGUR_CLIENT_ID}`);
   
@@ -28,5 +28,5 @@ export const uploadImage = async ({
   
     const response = await fetch("https://api.imgur.com/3/image", requestOptions);
     const data: PostImageResponse = await response.json();
-    return data.data.link;
+    return data;
   };

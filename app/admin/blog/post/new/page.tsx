@@ -1,5 +1,5 @@
 "use client";
-import { Suspense, useEffect, useRef, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { TagType } from "@/types/Tag";
 import { getTags } from "../../tag/new/actions";
@@ -12,12 +12,8 @@ import ImageUpload from "@/components/ImageUpload";
 import { createBlogPost } from "./actions";
 import { z } from "zod";
 import { SmallPostType } from "@/types/Post";
-import { useQuill } from 'react-quilljs';
-import Quill from "quill";
 import TagsSkeleton from "@/components/TagsSkeleton";
 import Editor from "@/components/Editor";
-import PostPreview from "@/components/PostPreview";
-// import { registerQuill } from "@/util/quillRegister";
 
 const date = new Date();
 
@@ -38,44 +34,9 @@ export default function Page() {
   const [description, setDescription] = useState<string>("");
   const [image, setImage] = useState<Blob>();
 
-  const { quill, quillRef } = useQuill();
-  const editorStateRef = useRef<Quill>(undefined);
-  const htmlRef = useRef<string>(html);
-
-  useEffect(() => {
-    if(quill) {
-      quill.root.innerHTML = htmlRef.current;
-      editorStateRef.current = quill;
-      quill.on('text-change', () => {
-        setHtml(quill.root.innerHTML);
-      });
-    }
-  }, [quill]);
-
   useEffect(() => {
     getTags().then((tags) => setTags(tags));
-
-    const draft = localStorage.getItem("draft");
-    if (draft) {
-      const parsed = JSON.parse(draft);
-      htmlRef.current = parsed
-      setHtml(parsed);
-    }
-
-    function handleBeforeUnload() {
-      localStorage.setItem(
-        "draft",
-        JSON.stringify(editorStateRef.current?.root.innerHTML)
-      );
-    }
-
-    window.addEventListener("beforeunload", handleBeforeUnload);
-    return () => {
-      window.removeEventListener("beforeunload", handleBeforeUnload);
-    };
   }, []);
-
-  const previewRef = useRef<HTMLDivElement>(null);
 
   const onSubmit = async () => {
 
@@ -126,7 +87,7 @@ export default function Page() {
           onChange={(e) => setDescription(e.target.value)}
         />
         <ImageUpload className="mb-8" fileChanged={setImage} />
-        <Editor quillRef={quillRef} />
+        <Editor setHtml={setHtml}/>
         <h2 className="font-bold text-2xl my-4">Tags</h2>
         <Suspense fallback={<TagsSkeleton />}>
           <TagGroup
@@ -143,7 +104,6 @@ export default function Page() {
           className="mb-4"
           nolink
         />
-        <PostPreview html={html} previewRef={previewRef} />
         <Button onClick={onSubmit} className="my-4">
           Publish
         </Button>

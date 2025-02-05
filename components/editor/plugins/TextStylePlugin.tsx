@@ -54,25 +54,29 @@ export default function TextStylePlugin() {
     <div className="flex w-fit shrink-0 border-[1px]">
       <Toggle
         className={"font-bold"}
-        onToggle={() => toggleSelectedFormat("bold")}
+        onClick={() => toggleSelectedFormat("bold")}
+        pressed={boldToggled}
       >
         b
       </Toggle>
       <Toggle
         className={"italic"}
-        onToggle={() => toggleSelectedFormat("italic")}
+        onClick={() => toggleSelectedFormat("italic")}
+        pressed={italicToggled}
       >
         i
       </Toggle>
       <Toggle
         className={"underline"}
-        onToggle={() => toggleSelectedFormat("underline")}
+        onClick={() => toggleSelectedFormat("underline")}
+        pressed={underlineToggled}
       >
         u
       </Toggle>
       <Toggle
         className={"line-through"}
-        onToggle={() => toggleSelectedFormat("strikethrough")}
+        onClick={() => toggleSelectedFormat("strikethrough")}
+        pressed={lineThroughToggled}
 
       >
         s

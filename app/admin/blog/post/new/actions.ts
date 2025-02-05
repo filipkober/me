@@ -27,7 +27,7 @@ export const createBlogPost = async ({
     return { error: "Unauthorized", tag: null };
   }
 
-    const imageUrl = await uploadImage({
+    const imgurResponse = await uploadImage({
         image,
         title: title + " thumbnail",
         description: description + " thumbnail",
@@ -38,7 +38,7 @@ export const createBlogPost = async ({
             title,
             description,
             content,
-            image: imageUrl,
+            image: imgurResponse.data.link,
             tagIDs: tags,
             authorId: session.user.userId!,
             date: new Date(),
