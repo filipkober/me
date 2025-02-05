@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
-import 'quill/dist/quill.snow.css';
 import NavBreadcrumbs from "@/components/NavBreadcrumbs";
+import { Toaster } from "@/components/ui/toaster";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -41,6 +41,7 @@ export default function RootLayout({
             <NavBreadcrumbs className="ml-auto"/>
           </div>
         </div>
+        <Toaster />
       </body>
     </html>
   );

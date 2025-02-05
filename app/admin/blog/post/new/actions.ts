@@ -1,39 +1,10 @@
 "use server";
 
-import { PostImageResponse } from "@/types/Imgur";
 import { getServerSession } from "next-auth/next";
 import { PostType, prismaPostToPostType, prismaPostToSmallPostType, SmallPostType } from "@/types/Post";
 import { prisma } from "@/util/prisma";
 import { authOptions } from "@/types/authOptions";
-
-const uploadImage = async ({
-  image,
-  title,
-  description,
-}: {
-  image: Blob;
-  title: string;
-  description: string;
-}): Promise<string> => {
-  const headers = new Headers();
-  headers.append("Authorization", `Client-ID ${process.env.IMGUR_CLIENT_ID}`);
-
-  const formData = new FormData();
-  formData.append("image", image);
-  formData.append("title", title);
-  formData.append("description", description);
-
-  const requestOptions: RequestInit = {
-    method: "POST",
-    headers,
-    body: formData,
-    redirect: "follow",
-  };
-
-  const response = await fetch("https://api.imgur.com/3/image", requestOptions);
-  const data: PostImageResponse = await response.json();
-  return data.data.link;
-};
+import { uploadImage } from "@/app/actions";
 
 interface CreateBlogPostParams {
   title: string;
@@ -56,7 +27,7 @@ export const createBlogPost = async ({
     return { error: "Unauthorized", tag: null };
   }
 
-    const imageUrl = await uploadImage({
+    const imgurResponse = await uploadImage({
         image,
         title: title + " thumbnail",
         description: description + " thumbnail",
@@ -67,7 +38,7 @@ export const createBlogPost = async ({
             title,
             description,
             content,
-            image: imageUrl,
+            image: imgurResponse.data.link,
             tagIDs: tags,
             authorId: session.user.userId!,
             date: new Date(),

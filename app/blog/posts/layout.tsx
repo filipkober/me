@@ -1,4 +1,5 @@
 import "@/styles/Blog.css"
+import "highlight.js/styles/night-owl.css";
 
 export default function Layout({children}: {children: React.ReactNode}) {
     return (
