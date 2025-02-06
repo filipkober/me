@@ -24,6 +24,7 @@ function $convertCodeElement(domNode: Node): null | DOMConversionOutput {
     return { node };
 }
 
+const SVG = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="lucide lucide-copy"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>`;
 export class CodeNode extends DecoratorNode<JSX.Element> {
     __lines: string[];
     __language: string;
@@ -64,6 +65,7 @@ export class CodeNode extends DecoratorNode<JSX.Element> {
         div.appendChild(pre);
 
         const code = document.createElement("code");
+        code.classList.add("text-wrap");
         pre.appendChild(code);
 
         this.__lines.forEach((line, i) => {
@@ -72,7 +74,6 @@ export class CodeNode extends DecoratorNode<JSX.Element> {
             div.innerHTML = `<div class='flex flex-row gap-2'>${this.__showLineNumbers && `<span class='select-none'>${i + 1}</span>`}<div>${element.value}</div></div>`;
             code.appendChild(div);
         });
-
         if (this.__canCopy) {
             const button = document.createElement("button");
             button.classList.add("absolute");
@@ -80,10 +81,9 @@ export class CodeNode extends DecoratorNode<JSX.Element> {
             button.classList.add("right-2");
             button.classList.add("aspect-square");
             button.classList.add("bg-transparent");
-            button.addEventListener("click", () => {
-                navigator.clipboard.writeText(this.__lines.join('\n'));
-            });
+            button.classList.add("copy-btn");
             code.appendChild(button);
+            button.innerHTML = SVG;
         }
 
         return { element: div };

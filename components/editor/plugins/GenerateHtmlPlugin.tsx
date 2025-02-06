@@ -3,12 +3,20 @@ import { $generateHtmlFromNodes } from '@lexical/html';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import React from 'react'
 
+import {copyScript} from '@/util/editor/copyScript';
+const INJECTED_SCRIPTS: string[] = [copyScript];
+
 export default function GenerateHtmlPlugin({setHtml = () => {}, download = false}: {setHtml?: (v: string) => void, download?: boolean}) {
     const [editor] = useLexicalComposerContext();
     
         const onClick = () => {
             editor.read(() => {
-              const html = $generateHtmlFromNodes(editor);
+              let html = $generateHtmlFromNodes(editor);
+
+              INJECTED_SCRIPTS.forEach(script => {
+                html += `<script>${script}</script>`;
+              });
+
               setHtml(html);
 
               if(!download) return;
