@@ -51,6 +51,9 @@ const authOptions: AuthOptions = {
             });
             session.user.admin = prismaUser?.admin;
             session.user.userId = prismaUser?.id;
+            session.user.name = prismaUser?.name;
+            session.user.coins = prismaUser?.coins;
+            session.user.achievements = prismaUser?.achievements;
         }
         return session;
     }

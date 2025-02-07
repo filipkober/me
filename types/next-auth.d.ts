@@ -9,11 +9,15 @@ declare module "next-auth" {
       image?: string | null;
       admin?: boolean;  // Add the admin field here
       userId?: string;
+      coins?: number;
+      achievements?: string[];
     }
   }
 
   interface User {
     admin?: boolean;  // Also add it to the User interface if you're using the user object elsewhere
     userId?: string;
+    coins?: number;
+    achievements?: string[];
   }
 }

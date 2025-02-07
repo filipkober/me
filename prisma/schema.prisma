@@ -27,6 +27,8 @@ model User {
   password String
   posts Post[]
   admin Boolean @default(false)
+  coins Int @default(0)
+  achievements String[] @default([])
 }
 
 model Tag {
