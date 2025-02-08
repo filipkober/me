@@ -12,7 +12,7 @@ export default async function Page() {
         <div className="w-screen h-screen flex flex-col items-center justify-center">
             <h1 className="text-2xl">Secrets Page</h1>
             <p>Your coins: {session.user.coins}</p>
-            <p>Your achievements: {session.user.achievements?.join(", ") || "None"}</p>
+            <p>Your achievements: {session.user.achievements?.map(a => a.name).join(", ") || "None"}</p>
         </div>
     );
 }

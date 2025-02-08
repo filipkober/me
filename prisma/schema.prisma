@@ -28,7 +28,8 @@ model User {
   posts Post[]
   admin Boolean @default(false)
   coins Int @default(0)
-  achievements String[] @default([])
+  achievements Achievement[] @relation(references: [id], fields: [achievementsIDs])
+  achievementsIDs String[] @db.ObjectId
 }
 
 model Tag {
@@ -39,4 +40,14 @@ model Tag {
   description String?
   postIDs String[] @db.ObjectId
   posts Post[] @relation(fields: [postIDs], references: [id])
+}
+
+model Achievement {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  name String
+  description String
+  image String
+  users User[] @relation(references: [id], fields: [usersIDs])
+  usersIDs String[] @db.ObjectId
+  public Boolean @default(false)
 }

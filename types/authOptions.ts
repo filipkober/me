@@ -47,6 +47,9 @@ const authOptions: AuthOptions = {
             const prismaUser = await prisma.user.findFirst({
                 where: {
                     email: session.user.email as string,
+                },
+                include: {
+                  achievements: true
                 }
             });
             session.user.admin = prismaUser?.admin;
