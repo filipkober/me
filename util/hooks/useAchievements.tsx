@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Prisma } from "@prisma/client";
 import { awardPublicAchievement, getCurrentUser } from "@/app/account/actions";
 import { useToast } from "@/hooks/use-toast";
+import Link from "next/link";
 
 const useAchievements = () => {
     const [user, setUser] = useState<Prisma.UserGetPayload<{include: {achievements: true}}>>();
@@ -34,11 +35,13 @@ const useAchievements = () => {
             return;
         }
 
-        const didAward = await awardPublicAchievement(achievementId);
-        if (didAward) {
+        const achievement = await awardPublicAchievement(achievementId);
+        if (achievement) {
             toast({
-                title: "Success",
-                description: "Achievement awarded",
+                title: "Achievement get!",
+                description: <div><p>You have been awarded the {achievement.name} achievement!</p>
+                <p>You can see your achievements <Link href="/secrets" className="underline text-blue-600">here</Link>.</p>
+                </div>
             });
         } else {
             toast({

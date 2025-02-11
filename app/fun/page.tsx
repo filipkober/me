@@ -25,6 +25,7 @@ export default function FunPage() {
             <h2 className="text-4xl mt-48">links:</h2>
             <ul className="text-2xl mt-4 list-disc list-outside">
                 <li><Link href="/fun/web-demo" className="text-blue-600 underline">Godot + React bridge demo</Link></li>
+                <li><Link href="/fun/daily" className="text-blue-600 underline">Claim your daily coins!</Link></li>
             </ul>
         </div>
     );

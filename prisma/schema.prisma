@@ -30,6 +30,7 @@ model User {
   coins Int @default(0)
   achievements Achievement[] @relation(references: [id], fields: [achievementsIDs])
   achievementsIDs String[] @db.ObjectId
+  lastDaily DateTime?
 }
 
 model Tag {

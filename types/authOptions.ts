@@ -57,6 +57,7 @@ const authOptions: AuthOptions = {
             session.user.name = prismaUser?.name;
             session.user.coins = prismaUser?.coins;
             session.user.achievements = prismaUser?.achievements;
+            session.user.lastDaily = prismaUser?.lastDaily || new Date(0);
         }
         return session;
     }

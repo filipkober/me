@@ -50,7 +50,7 @@ export const awardPublicAchievement = async (achievementId: string) => {
 
   const achievement = await prisma.achievement.findUnique({
     where: {id: achievementId, public: true},
-    select: {id: true}
+    select: {id: true, name: true}
   });
   if (!achievement) return null;
 
@@ -64,7 +64,7 @@ export const awardPublicAchievement = async (achievementId: string) => {
       },
       include: {achievements: true}
     });
-    return true;
+    return achievement;
   } catch (error) {
     console.error("Error awarding public achievement:", error);
     return null;

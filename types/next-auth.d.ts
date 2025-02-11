@@ -12,6 +12,7 @@ declare module "next-auth" {
       userId?: string;
       coins?: number;
       achievements?: Prisma.UserGetPayload<{ include: Prisma.UserInclude }>["achievements"];
+      lastDaily?: Date | null;
     }
   }
 
@@ -20,5 +21,6 @@ declare module "next-auth" {
     userId?: string;
     coins?: number;
     achievements?: Prisma.UserGetPayload<{ include: Prisma.UserInclude }>["achievements"];
+    lastDaily?: Date | null;
   }
 }

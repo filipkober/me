@@ -3,6 +3,8 @@ import CanvasObject from "../specialEffects/CanvasObject";
 // import Ball from "../specialEffects/Ball";
 import Star from "../specialEffects/Star";
 import Vector from "../Vector";
+import { FloatingCoin } from "../specialEffects/FloatingCoin";
+import Color from "../Color";
 // import Color from "../Color";
 
 export type ShootStarProps = {
@@ -63,6 +65,23 @@ export const useSpecialEffects = () => {
         addObject(star);
     }, [addObject, getContext, removeObject])
 
+    const drawCoin = useCallback((x: number, y: number, size: number) => {
+        const ctx = getContext();
+        if (!ctx || !canvasRef.current) return;
+
+        const coin = new FloatingCoin({
+            coordinates: new Vector(x, y),
+            context: ctx,
+            height: size,
+            width: size,
+            lifespan: 100,
+            color: Color.yellow(),
+            deleteFn: () => removeObject(coin.id)
+        });
+
+        addObject(coin);
+    }, [addObject, getContext, removeObject])
+
     // loop
     useEffect(() => {
         const ctx = getContext();
@@ -89,5 +108,5 @@ export const useSpecialEffects = () => {
         }
     }, [clearCanvas, getContext]);
 
-    return { canvasRef, clearCanvas, shootStar, addObject, removeObject };
+    return { canvasRef, clearCanvas, shootStar, addObject, removeObject, drawCoin };
 }
