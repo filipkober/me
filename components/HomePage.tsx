@@ -18,6 +18,9 @@ export default function HomePage() {
     const { canvasRef, shootStar, startStarShower, stopShootingStars } = useSpecialEffects();
 
     useEffect(() => {
+
+        if (window.innerWidth > 640) return;
+
         startStarShower();
 
         const stopShootingStarsRef = stopShootingStars.current;
