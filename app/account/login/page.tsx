@@ -10,7 +10,7 @@ import { useToast } from "@/hooks/use-toast";
 
 const LoginPage = () => {
 
-  const {toast} = useToast();
+    const {toast} = useToast();
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();

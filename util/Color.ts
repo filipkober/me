@@ -39,6 +39,30 @@ export default class Color {
     static white(): Color {
         return new Color(255, 255, 255);
     }
+    static black(): Color {
+        return new Color(0, 0, 0);
+    }
+    static red(): Color {
+        return new Color(255, 0, 0);
+    }
+    static green(): Color {
+        return new Color(0, 255, 0);
+    }
+    static blue(): Color {
+        return new Color(0, 0, 255);
+    }
+    static yellow(): Color {
+        return new Color(255, 255, 0);
+    }
+    static cyan(): Color {
+        return new Color(0, 255, 255);
+    }
+    static magenta(): Color {
+        return new Color(255, 0, 255);
+    }
+    static orange(): Color {
+        return new Color(255, 165, 0);
+    }
 
     private toHSL(): { h: number, s: number, l: number } {
         const r = this.red / 255;
@@ -118,6 +142,24 @@ export default class Color {
     // Helper method to start a rainbow sequence
     static rainbowStart(): Color {
         return Color.fromHSL(0, 100, 50);  // Start with pure red
+    }
+
+    darker(amount: number): Color {
+        const factor = 1 - amount;
+        return new Color(
+            Math.max(0, Math.min(255, this.red * factor)),
+            Math.max(0, Math.min(255, this.green * factor)),
+            Math.max(0, Math.min(255, this.blue * factor))
+        );
+    }
+
+    lighten(amount: number): Color {
+        const factor = 1 + amount;
+        return new Color(
+            Math.max(0, Math.min(255, this.red * factor)),
+            Math.max(0, Math.min(255, this.green * factor)),
+            Math.max(0, Math.min(255, this.blue * factor))
+        );
     }
 
 }

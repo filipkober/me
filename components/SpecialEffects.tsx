@@ -14,6 +14,6 @@ export default function SpecialEffects({canvasRef}: {canvasRef: React.RefObject<
     }, [])
 
     return (
-    <canvas width={screenSize.x} height={screenSize.y} ref={canvasRef} className='pointer-events-none z-50 bg-transparent w-screen h-screen fixed top-0' />
+    <canvas width={screenSize.x} height={screenSize.y} ref={canvasRef} className='pointer-events-none -z-10 sm:z-50 bg-transparent w-screen h-screen fixed top-0' />
   )
 }

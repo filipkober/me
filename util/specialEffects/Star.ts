@@ -14,6 +14,7 @@ type StarProps = {
     points: number;
     deleteFn?: () => void;
     rainbow?: boolean;
+    fallThrough?: boolean;
 }
 
 const threshold = 0.2;
@@ -26,8 +27,8 @@ class Star extends PhysicsObject {
     private deletion_started: boolean = false;
     private rainbow: boolean;
 
-    constructor({ coordinates, width, height, color = Color.rainbowStart(), context, velocity, weight, hasGravity, points, deleteFn, rainbow = false }: StarProps) {
-        super({ coordinates, width, height, color, context, velocity, hasGravity, weight });
+    constructor({ coordinates, width, height, color = Color.rainbowStart(), context, velocity, weight, hasGravity, points, deleteFn, rainbow = false, fallThrough = false }: StarProps) {
+        super({ coordinates, width, height, color, context, velocity, hasGravity, weight, fallThrough });
         this.points = points;
         this.rainbow = rainbow;
         this.registerCallback('afterMove', this.rotateAccordingToVelocity.bind(this));

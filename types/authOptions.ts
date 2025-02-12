@@ -47,10 +47,17 @@ const authOptions: AuthOptions = {
             const prismaUser = await prisma.user.findFirst({
                 where: {
                     email: session.user.email as string,
+                },
+                include: {
+                  achievements: true
                 }
             });
             session.user.admin = prismaUser?.admin;
             session.user.userId = prismaUser?.id;
+            session.user.name = prismaUser?.name;
+            session.user.coins = prismaUser?.coins;
+            session.user.achievements = prismaUser?.achievements;
+            session.user.lastDaily = prismaUser?.lastDaily || new Date(0);
         }
         return session;
     }

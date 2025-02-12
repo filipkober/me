@@ -8,6 +8,7 @@ export default function AdminPage() {
             <ul className="list-disc text-xl">
                 <li><Link href="/admin/blog/post/new" className="text-blue-500 underline">Create a new blog post</Link></li>
                 <li><Link href="/admin/blog/tag/new" className="text-blue-500 underline">Create a new tag</Link></li>
+                <li><Link href="/admin/account/achievements/new" className="text-blue-500 underline">Create a new achievement</Link></li>
             </ul>
         </div>
     );
