@@ -5,6 +5,8 @@ import Star from "../specialEffects/Star";
 import Vector from "../Vector";
 import { FloatingCoin } from "../specialEffects/FloatingCoin";
 import Color from "../Color";
+import { ShootingStar } from "../specialEffects/ShootingStar";
+import { randomInt } from "../randomUtils";
 // import Color from "../Color";
 
 export type ShootStarProps = {
@@ -15,7 +17,10 @@ export type ShootStarProps = {
 
 export const useSpecialEffects = () => {
     const canvasRef = useRef<HTMLCanvasElement>(null);
-    const objectsRef = useRef<CanvasObject[]>([])
+    const objectsRef = useRef<CanvasObject[]>([]);
+    const stopShootingStars = useRef<() => void>(null);
+    const activeShootingStars = useRef<Vector[]>([]);
+    const MIN_STAR_DISTANCE = 100; // minimum pixels between stars
 
     const getContext = useCallback(() => {
         if (!canvasRef.current) {
@@ -80,7 +85,79 @@ export const useSpecialEffects = () => {
         });
 
         addObject(coin);
-    }, [addObject, getContext, removeObject])
+    }, [addObject, getContext, removeObject]);
+
+    const isPositionValid = (pos: Vector) => {
+        return !activeShootingStars.current.some(starPos => 
+            Math.hypot(starPos.x - pos.x, starPos.y - pos.y) < MIN_STAR_DISTANCE
+        );
+    };
+
+    const removeStarPosition = (pos: Vector) => {
+        activeShootingStars.current = activeShootingStars.current.filter(
+            starPos => starPos !== pos
+        );
+    };
+
+    const startStarShower = useCallback(() => {
+        const ctx = getContext();
+        if (!ctx || !canvasRef.current) return;
+
+        const starShower = setInterval(() => {
+            const attempts = 10; // Max attempts to find valid position
+            const starsToSpawn = randomInt(3, 8)
+            
+            for(let i = 0; i < starsToSpawn; i++) {
+                let validPosition: Vector | null = null;
+                
+                // Try to find valid position
+                for(let attempt = 0; attempt < attempts; attempt++) {
+                    const isTopEdge = Math.random() > 0.5;
+                    const x = isTopEdge ? Math.random() * window.innerWidth : 0;
+                    const y = isTopEdge ? 0 : Math.random() * window.innerHeight;
+                    const testPos = new Vector(x, y);
+                    
+                    if (isPositionValid(testPos)) {
+                        validPosition = testPos;
+                        break;
+                    }
+                }
+
+                if (validPosition) {
+                    const size = randomInt(3, 5);
+                    activeShootingStars.current.push(validPosition);
+
+                    const shootingStar: ShootingStar = new ShootingStar({
+                        coordinates: validPosition,
+                        context: ctx,
+                        height: size,
+                        width: size,
+                        speed: 1/(size*0.1),
+                        length: randomInt(150, 200),
+                        fade: 0.3,
+                        deleteFn: () => {
+                            removeObject(shootingStar.id);
+                            removeStarPosition(validPosition);
+                        },
+                        angle: Math.PI / 4,
+                        color: Color.white(),
+                        addObjectFn: addObject
+                    });
+                    setTimeout(() => addObject(shootingStar), randomInt(0, 400));
+                }
+            }
+        }, randomInt(800, 1400));
+
+        stopShootingStars.current = () => {
+            clearInterval(starShower);
+            activeShootingStars.current = [];
+        };
+
+        return () => {
+            clearInterval(starShower);
+            activeShootingStars.current = [];
+        };
+    }, [getContext, removeObject, addObject]);
 
     // loop
     useEffect(() => {
@@ -108,5 +185,5 @@ export const useSpecialEffects = () => {
         }
     }, [clearCanvas, getContext]);
 
-    return { canvasRef, clearCanvas, shootStar, addObject, removeObject, drawCoin };
+    return { canvasRef, clearCanvas, shootStar, addObject, removeObject, drawCoin, startStarShower, stopShootingStars };
 }

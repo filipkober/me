@@ -7,6 +7,7 @@ import { useSpecialEffects } from "@/util/hooks/useSpecialEffects";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
 import { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider } from "@/components/ui/tooltip";
+import { useEffect } from "react";
 
 export default function HomePage() {
 
@@ -14,7 +15,18 @@ export default function HomePage() {
     const loggedIn = !!session.data;
     const isAdmin = session.data?.user?.admin;
   
-    const { canvasRef, shootStar } = useSpecialEffects();
+    const { canvasRef, shootStar, startStarShower, stopShootingStars } = useSpecialEffects();
+
+    useEffect(() => {
+        startStarShower();
+
+        const stopShootingStarsRef = stopShootingStars.current;
+
+        return () => {
+          if (stopShootingStarsRef)
+            stopShootingStarsRef();
+        }
+    }, [startStarShower, stopShootingStars])
 
   return (
     <>
@@ -39,7 +51,7 @@ export default function HomePage() {
       <div className="sm:flex justify-center items-center col-start-2 hidden">
         <Boids />
       </div>
-      <div className="sm:col-start-3 flex justify-center flex-col gap-4 sm:gap-64 relative">
+      <div className="sm:col-start-3 flex justify-center flex-col gap-4 sm:gap-64 relative mt-4 sm:mt-0">
         <h1 className="text-4xl font-bold sm:text-left sm:absolute lg:right-[22vw] sm:bottom-[30vw] text-nowrap text-center">
           <StarLink href={"/fun"} shootStar={shootStar}>Fun</StarLink>
         </h1>

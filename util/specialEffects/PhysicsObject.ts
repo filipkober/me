@@ -12,6 +12,7 @@ export interface PhysicsObjectProps {
     hasGravity?: boolean;
     weight?: number;
     friction?: number;
+    fallThrough?: boolean;
 };
 
 const STOP_MOVEMENT_THRESHOLD = 0.5;
@@ -24,17 +25,19 @@ abstract class PhysicsObject extends CanvasObject {
     protected hasGravity: boolean;
     protected weight: number;
     protected friction: number;
+    private fallThrough: boolean;
     private afterMove: Array<() => void> = [];
     private afterGravity: Array<() => void> = [];
     private afterBounce: Array<() => void> = [];
     private afterFriction: Array<() => void> = [];
 
-    constructor({coordinates, width, height, color, context, velocity = Vector.zero(), hasGravity = true, weight = 0.1, friction = 1 }: PhysicsObjectProps) {
+    constructor({coordinates, width, height, color, context, velocity = Vector.zero(), hasGravity = true, weight = 0.1, friction = 1, fallThrough = false }: PhysicsObjectProps) {
         super({ coordinates, width, height, color, context });
         this.velocity = velocity;
         this.hasGravity = hasGravity;
         this.weight = weight;
         this.friction = friction;
+        this.fallThrough = fallThrough;
     }
 
     public update() {
@@ -50,6 +53,11 @@ abstract class PhysicsObject extends CanvasObject {
     }
 
     private bounceOffEdges() {
+
+        if (this.fallThrough) {
+            return;
+        }
+
         // Horizontal collisions
         if (this.coordinates.x + this.width > this.context.canvas.width) {
             this.coordinates.x = this.context.canvas.width - this.width;
