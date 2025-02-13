@@ -9,8 +9,7 @@ import { register } from "../actions";
 import { signIn } from "next-auth/react";
 import { useToast } from "@/hooks/use-toast";
 import { z } from "zod";
-import Link from "next/link";
-import { useSearchParams } from "next/navigation";
+import LoginRegisterLink from "@/components/LoginRegisterLink";
 
 const registerSchema = z
   .object({
@@ -26,9 +25,6 @@ const registerSchema = z
 
 const RegisterPage = () => {
   const { toast } = useToast();
-
-  const searchParams = useSearchParams();
-  const callbackUrl = searchParams.get("callbackUrl");
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -107,16 +103,9 @@ const RegisterPage = () => {
         <Button type="submit">Register</Button>
         <p className="text-center">
           Already have an account?{" "}
-          <Link
-            href={
-              callbackUrl
-                ? `/account/login?callbackUrl=${callbackUrl}`
-                : "/account/login"
-            }
-            className="text-blue-600 underline"
-          >
-            Log in
-          </Link>
+          <Suspense>
+            <LoginRegisterLink navigateTo="login" />
+          </Suspense>
         </p>
       </form>
     </div>
