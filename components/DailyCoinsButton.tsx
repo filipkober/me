@@ -21,9 +21,9 @@ export default function DailyCoinsButton({ lastClaimed, drawCoin }: Props) {
   const { awardAchievement, getAchievements } = useAchievements();
 
   const diff = now.getTime() - lastClaimedDate.getTime();
-  const hoursLeft = 24 - Math.floor(diff / 1000 / 60 / 60);
-  const minutesLeft = 60 - (Math.floor(diff / 1000 / 60) % 60);
-  const secondsLeft = 60 - (Math.floor(diff / 1000) % 60);
+  const hoursLeft = Math.floor(24 - diff / 1000 / 60 / 60)
+  const minutesLeft = Math.floor(60 - diff / 1000 / 60 % 60)
+  const secondsLeft = Math.floor(60 - diff / 1000 % 60)
 
   const canClaim = diff >= 24 * 60 * 60 * 1000;
 
