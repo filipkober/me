@@ -7,10 +7,14 @@ import { FormEvent, Suspense } from "react";
 import { signIn } from "next-auth/react";
 import CallbackRedirector from "@/components/CallbackRedirector";
 import { useToast } from "@/hooks/use-toast";
+import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 
 const LoginPage = () => {
+  const { toast } = useToast();
 
-    const {toast} = useToast();
+  const searchParams = useSearchParams();
+  const callbackUrl = searchParams.get("callbackUrl");
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -32,10 +36,10 @@ const LoginPage = () => {
         variant: "destructive",
       });
     } else {
-        toast({
-            title: "Success",
-            description: "Logged in",
-        });
+      toast({
+        title: "Success",
+        description: "Logged in",
+      });
     }
   };
 
@@ -51,6 +55,19 @@ const LoginPage = () => {
         <Label htmlFor="password">Password</Label>
         <Input type="password" name="password" placeholder="Password" />
         <Button type="submit">Login</Button>
+        <p className="text-center">
+          No account?{" "}
+          <Link
+            href={
+              callbackUrl
+                ? `/account/register?callbackUrl=${callbackUrl}`
+                : "/account/register"
+            }
+            className="text-blue-600 underline"
+          >
+            Sign up
+          </Link>
+        </p>
       </form>
     </div>
   );
