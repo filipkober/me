@@ -7,10 +7,10 @@ import { FormEvent, Suspense } from "react";
 import { signIn } from "next-auth/react";
 import CallbackRedirector from "@/components/CallbackRedirector";
 import { useToast } from "@/hooks/use-toast";
+import LoginRegisterLink from "@/components/LoginRegisterLink";
 
 const LoginPage = () => {
-
-    const {toast} = useToast();
+  const { toast } = useToast();
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -32,10 +32,10 @@ const LoginPage = () => {
         variant: "destructive",
       });
     } else {
-        toast({
-            title: "Success",
-            description: "Logged in",
-        });
+      toast({
+        title: "Success",
+        description: "Logged in",
+      });
     }
   };
 
@@ -51,6 +51,12 @@ const LoginPage = () => {
         <Label htmlFor="password">Password</Label>
         <Input type="password" name="password" placeholder="Password" />
         <Button type="submit">Login</Button>
+        <p className="text-center">
+          No account?{" "}
+          <Suspense>
+            <LoginRegisterLink navigateTo="register" />
+          </Suspense>
+        </p>
       </form>
     </div>
   );

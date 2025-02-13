@@ -9,6 +9,7 @@ import { register } from "../actions";
 import { signIn } from "next-auth/react";
 import { useToast } from "@/hooks/use-toast";
 import { z } from "zod";
+import LoginRegisterLink from "@/components/LoginRegisterLink";
 
 const registerSchema = z
   .object({
@@ -99,7 +100,13 @@ const RegisterPage = () => {
           name="confirm-password"
           placeholder="Confirm Password"
         />
-        <Button type="submit">Login</Button>
+        <Button type="submit">Register</Button>
+        <p className="text-center">
+          Already have an account?{" "}
+          <Suspense>
+            <LoginRegisterLink navigateTo="login" />
+          </Suspense>
+        </p>
       </form>
     </div>
   );
