@@ -52,3 +52,9 @@ model Achievement {
   usersIDs String[] @db.ObjectId
   public Boolean @default(false)
 }
+
+model Thought {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  content String
+  date DateTime @default(now())
+}
