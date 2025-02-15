@@ -10,9 +10,10 @@ type CreateAchievementPayload = {
     description: string;
     image: Blob;
     isPublic: boolean;
+    uniqueTag?: string;
 }
 
-export const createAchievement = async ({name, description, image, isPublic}: CreateAchievementPayload) => {
+export const createAchievement = async ({name, description, image, isPublic, uniqueTag}: CreateAchievementPayload) => {
 
     const session = await getServerSession(authOptions);
     if (!session || !session.user.admin) return null;
@@ -23,15 +24,15 @@ export const createAchievement = async ({name, description, image, isPublic}: Cr
             title: name,
             description
         });
-
-        if (!uploadedImage) return null
+        if (!uploadedImage.data.link) return null
 
         const achievement = await prisma.achievement.create({
             data: {
                 name,
                 description,
                 image: uploadedImage.data.link,
-                public: isPublic
+                public: isPublic,
+                unique_tag: uniqueTag
             }
         });
         return achievement;

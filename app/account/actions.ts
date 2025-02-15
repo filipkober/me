@@ -48,9 +48,15 @@ export const awardPublicAchievement = async (achievementId: string) => {
   const user = await getCurrentUser({achievements: true});
   if (!user) return null;
 
-  const achievement = await prisma.achievement.findUnique({
-    where: {id: achievementId, public: true},
-    select: {id: true, name: true}
+  const achievementIdIs12Bytes = /^[0-9a-fA-F]{24}$/.test(achievementId);
+
+  const achievement = await prisma.achievement.findFirst({
+    where: {
+      id: achievementIdIs12Bytes ? achievementId : undefined,
+      unique_tag: achievementIdIs12Bytes ? undefined : achievementId,
+      public: true
+    },
+    select: { id: true, name: true }
   });
   if (!achievement) return null;
 
@@ -59,7 +65,7 @@ export const awardPublicAchievement = async (achievementId: string) => {
       where: {email: user.email},
       data: {
         achievements: {
-          connect: [{id: achievementId}]
+          connect: [{id: achievement.id}]
         }
       },
       include: {achievements: true}
