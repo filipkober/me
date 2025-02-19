@@ -20,7 +20,7 @@ export default function BlogPost({ post, className, nolink = false }: BlogPostPr
     <div className={classes}>
         <div className='max-h-[20vh] lg:max-h-[40vh] w-full overflow-clip relative'>
         <Image src={post.image || '/post_placeholder.jpg'} alt='blog post' width={800} height={500} objectFit='cover' className='w-full rounded-xl' />
-        <div className='h-full w-full bg-[linear-gradient(180deg,rgba(0,0,0,0.5)0%,rgba(0,0,0,1)100%)] bottom-0 left-0 z-10 absolute rounded-xl' />
+        <div className='h-[105%] w-full bg-[linear-gradient(180deg,rgba(0,0,0,0.5)0%,rgba(0,0,0,1)100%)] -bottom-2 left-0 z-10 absolute rounded-xl' />
         <h1 className='text-5xl font-bold z-20 mx-4 absolute bottom-0 left-0'>{nolink ? post.title : <Link href={`/blog/posts/${post.id}`}>{post.title}</Link>}</h1>
         </div>
         <div className='px-4 mt-2 pb-4'>

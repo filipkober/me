@@ -5,7 +5,7 @@ import { prisma } from "@/util/prisma";
 import { getServerSession } from "next-auth/next";
 
 export const getRandomThoughts = async () => {
-    const thoughts = await prisma.thought.findMany();   
+    const thoughts = await prisma.thought.findMany({orderBy: {date: 'desc'}});   
     return thoughts;
 };
 

@@ -83,6 +83,7 @@ export default function DailyCoinsButton({ lastClaimed, drawCoin }: Props) {
 
   const btnClassName = cn({
     "cursor-not-allowed": !canClaim,
+    "text-wrap": true,
   })
 
   return (

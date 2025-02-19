@@ -38,7 +38,7 @@ export default function CiphersPage() {
       <h1 className="text-5xl font-bold">Ciphers Page</h1>
       <p>Here you can apply ciphers to text! You can chain them together</p>
       <h2>Available Ciphers:</h2>
-      <Accordion type="multiple" className="w-1/2 mx-auto text-left">
+      <Accordion type="multiple" className="w-3/4 lg:w-1/2 mx-auto text-left">
         <AccordionItem value="caesar">
           <AccordionTrigger>Caesar Cipher</AccordionTrigger>
           <AccordionContent>
@@ -65,7 +65,7 @@ export default function CiphersPage() {
                 type="number"
                 id="caesar-shift"
                 name="caesar-shift"
-                className="w-1/5"
+                className="lg:w-1/5"
                 step={1}
                 value={caesarShift}
                 onChange={(e) => setCaesarShift(Number(e.target.value))}
@@ -98,7 +98,7 @@ export default function CiphersPage() {
                 type="text"
                 id="vigenere-key"
                 name="vigenere-key"
-                className="w-1/5"
+                className="lg:w-1/5"
                 value={vigenereKey}
                 onChange={(e) => setVigenereKey(e.target.value)}
               />

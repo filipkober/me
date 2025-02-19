@@ -18,7 +18,7 @@ export default async function RandomThoughts({}) {
     const thoughtsFormatted = thoughts.map(t => `[${t.date.toLocaleDateString("pl-PL", localeDateOptions)}] ${t.content}`);
 
     return (
-        <div className="flex flex-col pt-4 gap-4 items-center justify-center">
+        <div className="flex flex-col p-4 gap-4 items-center justify-center">
             <h1 className="text-4xl font-bold">Random Thoughts</h1>
             <p>Here are some random thoughts:</p>
             <DecorativeTerminal lines={thoughtsFormatted} />
