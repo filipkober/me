@@ -37,8 +37,8 @@ export default function RootLayout({
       >
         <div className="min-h-screen">
           {children}
-          <div className="fixed bottom-2 flex w-full pr-12 sm:pr-10 lg:pr-4 z-30">
-            <NavBreadcrumbs className="ml-auto"/>
+          <div className="fixed bottom-2 flex w-full pr-12 sm:pr-10 lg:pr-4 z-30 pointer-events-none">
+            <NavBreadcrumbs className="ml-auto pointer-events-auto"/>
           </div>
         </div>
         <Toaster />

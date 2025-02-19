@@ -10,6 +10,7 @@ export default function ToolsPage() {
             <h2 className="text-4xl">links:</h2>
             <ul className="text-2xl mt-4 list-disc list-outside">
                 <li><Link href="/tools/editor" className="text-blue-600 underline">Rich text editor</Link></li>
+                <li><Link href="/tools/ciphers" className="text-blue-600 underline">Ciphers</Link></li>
             </ul>
         </div>
     );

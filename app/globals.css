@@ -6,6 +6,11 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+@font-face {
+  font-family: 'pressStart2P';
+  src: url('/PressStart2P-Regular.ttf') format('truetype');
+}
+
 @layer base {
   :root {
     --background: 0 0% 3.9%;

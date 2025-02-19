@@ -15,6 +15,7 @@ export default function CreateAchievement() {
   const [description, setDescription] = useState<string>("");
   const [image, setImage] = useState<Blob>();
   const [isPublic, setIsPublic] = useState<boolean>(false);
+  const [uniqueTag, setUniqueTag] = useState<string>("");
 
   const { toast } = useToast();
 
@@ -35,6 +36,7 @@ export default function CreateAchievement() {
       description,
       image,
       isPublic,
+      uniqueTag
     });
     if (newAchievement) {
       toast({
@@ -63,7 +65,21 @@ export default function CreateAchievement() {
           id="name"
           name="name"
           value={name}
-          onChange={(e) => setName(e.target.value)}
+          onChange={(e) => {
+            setName(e.target.value);
+            const strippedName = name.replaceAll(" ", "-").replaceAll(/[^a-zA-Z0-9-]/g, "").toLowerCase();
+            if(!uniqueTag || uniqueTag === strippedName) {
+              setUniqueTag(e.target.value.replaceAll(" ", "-").replaceAll(/[^a-zA-Z0-9-]/g, "").toLowerCase());
+            }
+          }}
+        />
+        <Label htmlFor="name">Unique tag (optional)</Label>
+        <Input
+          type="text"
+          id="tag"
+          name="tag"
+          value={uniqueTag}
+          onChange={(e) => setUniqueTag(e.target.value)}
         />
         <Label htmlFor="description">Description</Label>
         <Textarea
