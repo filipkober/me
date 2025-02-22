@@ -2,20 +2,23 @@
 
 import Image from "next/image";
 import { Button } from "./ui/button";
-import { useEffect, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { claimDailyCoins } from "@/app/fun/daily/actions";
 import { useToast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
 import useAchievements from "@/util/hooks/useAchievements";
+import { useSpecialEffectsContext } from "@/util/contexts/SpecialEffectsContext";
 
 interface Props {
   lastClaimed: Date;
-  drawCoin: (x: number, y: number) => void;
+  setCoins: Dispatch<SetStateAction<number>>;
 }
-export default function DailyCoinsButton({ lastClaimed, drawCoin }: Props) {
+export default function DailyCoinsButton({ lastClaimed, setCoins }: Props) {
   const [now, setNow] = useState(new Date());
   const [disabledClicks, setDisabledClicks] = useState(0);
   const [lastClaimedDate, setLastClaimedDate] = useState(new Date(lastClaimed));
+  const { drawCoin } = useSpecialEffectsContext();
+
 
   const { toast } = useToast();
   const { awardAchievement, getAchievements } = useAchievements();
@@ -70,7 +73,8 @@ export default function DailyCoinsButton({ lastClaimed, drawCoin }: Props) {
       });
       drawCoin(
         e.clientX,
-        e.clientY
+        e.clientY,
+        10
       );
     } else {
       toast({
@@ -79,6 +83,7 @@ export default function DailyCoinsButton({ lastClaimed, drawCoin }: Props) {
       });
     }
     setLastClaimedDate(new Date());
+    setCoins(c => c + 10);
   };
 
   const btnClassName = cn({

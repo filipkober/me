@@ -2,6 +2,7 @@ import DoubleOrNothingPage from "@/components/DoubleOrNothingPage";
 import { authOptions } from "@/types/authOptions";
 import { getServerSession } from "next-auth/next";
 import { redirect } from "next/navigation";
+import SpecialEffectsWrapper from "@/components/SpecialEffectsWrapper";
 
 export default async function DoubleOrNothing() {
 
@@ -12,6 +13,8 @@ export default async function DoubleOrNothing() {
     }
 
     return (
-        <DoubleOrNothingPage session={session} />
+        <SpecialEffectsWrapper>
+            <DoubleOrNothingPage session={session} />
+        </SpecialEffectsWrapper>
     );
 }

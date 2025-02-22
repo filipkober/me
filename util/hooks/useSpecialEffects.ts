@@ -187,3 +187,5 @@ export const useSpecialEffects = () => {
 
     return { canvasRef, clearCanvas, shootStar, addObject, removeObject, drawCoin, startStarShower, stopShootingStars };
 }
+
+export type UseSpecialEffectsReturnType = ReturnType<typeof useSpecialEffects>;
