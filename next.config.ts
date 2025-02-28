@@ -18,6 +18,13 @@ const nextConfig: NextConfig = {
   publicRuntimeConfig: {
     version,
     nextVersion: dependencies.next,
+  },
+  webpack: (config) => {
+    config.module.rules.push({
+      test: /\.(glsl|frag|vert|vs|fs)$/,
+      use: ["raw-loader", "glslify-loader", "glslify"]
+    });
+    return config;
   }
 };
 
