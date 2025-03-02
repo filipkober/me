@@ -1,3 +1,6 @@
+import { RefObject } from 'react';
+import { Color as ThreeColor } from 'three'
+
 export default class Color {
     red: number;
     green: number;
@@ -25,7 +28,11 @@ export default class Color {
     }
 
     toHex(): string {
-        return `#${this.red.toString(16)}${this.green.toString(16)}${this.blue.toString(16)}`;
+        const r = Math.round(this.red);
+        const g = Math.round(this.green);
+        const b = Math.round(this.blue);
+    
+        return `#${r.toString(16).padStart(2, '0')}${g.toString(16).padStart(2, '0')}${b.toString(16).padStart(2, '0')}`;
     }
 
     toRGB(): string {
@@ -160,6 +167,21 @@ export default class Color {
             Math.max(0, Math.min(255, this.green * factor)),
             Math.max(0, Math.min(255, this.blue * factor))
         );
+    }
+
+    static fromThreeColor(color: ThreeColor): Color {
+        return new Color(color.r * 255, color.g * 255, color.b * 255);
+    }
+
+    toThreeColor(): ThreeColor {
+        return new ThreeColor(this.red / 255, this.green / 255, this.blue / 255);
+    }
+
+    static fromColorInputRef(ref: RefObject<HTMLInputElement | null>): Color {
+        if (ref.current) {
+            return Color.fromHex(ref.current.value);
+        }
+        return Color.black();
     }
 
 }

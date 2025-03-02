@@ -1,45 +1,49 @@
+"use client"
 import vertex_shader from '@/util/three/backdrop_plane.vert'
 import fragment_shader from '@/util/three/backdrop_plane.frag'
 import { Plane, shaderMaterial } from '@react-three/drei'
 import { extend, useFrame, useThree } from '@react-three/fiber'
-import { ShaderMaterial } from 'three'
-import { JSX, useRef } from 'react'
+import { useRef } from 'react'
+import { Color as ThreeColor } from 'three'
+import Color from '@/util/Color'
 
 type Uniforms = {
     uTime: number
+    uColor1: ThreeColor
+    uColor2: ThreeColor
 }
 
 const INITIAL_UNIFORMS: Uniforms = {
-    uTime: 0
+    uTime: 0,
+    uColor1: Color.black().toThreeColor(),
+    uColor2: Color.red().toThreeColor(),
 }
 
 const BackdropPlaneShader = shaderMaterial(INITIAL_UNIFORMS, vertex_shader, fragment_shader)
 
-extend({ BackdropPlaneShader })
+const BackdropPlaneShaderMaterial = extend(BackdropPlaneShader)
 
-export default function BackdropPlane() {
+interface Props {
+    color1: Color,
+    color2: Color
+}
+
+export default function BackdropPlane({ color1, color2 }: Props) {
 
     const { viewport } = useThree();
-    const shader = useRef<ShaderMaterial & Partial<Uniforms>>(null);
+    const shader = useRef<typeof BackdropPlaneShaderMaterial & Uniforms>(null);
 
     useFrame(({clock}) => {
         if(!shader.current) return;
 
-        shader.current.uTime = clock.getElapsedTime();
+        shader.current.uTime = clock.elapsedTime;
+        shader.current.uColor1 = color1.toThreeColor();
+        shader.current.uColor2 = color2.toThreeColor();
     })
 
   return (
     <Plane args={[viewport.width, viewport.height, 1, 1]} position={[0,0,0]}>
-        <backdropPlaneShader key={BackdropPlaneShader.key} ref={shader} uTime={0} />
+        <BackdropPlaneShaderMaterial key={BackdropPlaneShader.key} ref={shader} {...INITIAL_UNIFORMS} />
     </Plane>
   )
-}
-
-declare module '@react-three/fiber' {
-    interface ThreeElements {
-        backdropPlaneShader: JSX.IntrinsicElements['mesh'] & {
-            key?: string;
-            ref?: React.Ref<ShaderMaterial & Partial<Uniforms>>;
-        } & Partial<Uniforms>;
-    }
 }
