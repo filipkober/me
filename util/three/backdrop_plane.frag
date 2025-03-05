@@ -41,7 +41,7 @@ float time_snoise(in vec2 st) {
     return snoise(rotation * spiraled * 2.0);
 }
 
-#define OCTAVES 6
+#define OCTAVES 4
 float fbm(in vec2 st) {
     float value = 0.0;
     float amplitude = 0.09;
@@ -75,11 +75,7 @@ float pattern(in vec2 p) {
 void main() {
     
     vec2 p = vUv * 5.0;
-    vec2 centered = p - 2.5;
-    float distanceFromCenter = length(centered);
-    
-    // Gradient with soft falloff
-    float gradient = 1.0;
+    vec2 centered = p - 2.5;    
     
     // Get warped pattern
     float patternValue = pattern(p);
@@ -88,7 +84,7 @@ void main() {
     vec3 color = mix(
         uColor1,
         uColor2,
-        patternValue * pow(gradient, 2.0) * 4. // Boost center intensity
+        patternValue * 4.
     );
     
     gl_FragColor = vec4(color, 1.0);

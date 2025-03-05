@@ -55,30 +55,32 @@ export const playGame = async (action: "hit" | "withdraw"): Promise<DoubleOrNoth
         return null;
     }
 
-    let game;
+    let game = user.doubleOrNothingGame;
 
     if(action === "hit") {
         const doubled = Math.random() < 0.5;
         game = await prisma.doubleOrNothingGame.update({
             where: {id: user.doubleOrNothingGame.id},
             data: {result: doubled ? user.doubleOrNothingGame.result * 2 : 0,
-                status: doubled ? "active" : "lost"
+                status: doubled ? "active" : "lost",
+                mult: doubled ? user.doubleOrNothingGame.mult * 2 : 0,
             }
         });
-    } else {
+    } 
+    if(action === "withdraw" || game?.status === "lost") {
         const updatedUser = await prisma.user.update({
             where: {id: user.id},
             data: {coins: user.coins + user.doubleOrNothingGame.result},
             include: {doubleOrNothingGame: true}
         });
-        game = updatedUser.doubleOrNothingGame;
-        await prisma.doubleOrNothingGame.delete({where: {id: user.doubleOrNothingGame.id}});
+        game = updatedUser.doubleOrNothingGame!;
+        await prisma.doubleOrNothingGame.delete({ where: { id: user.doubleOrNothingGame.id } });
     }
 
     return game;
 }
 export type DoubleOrNothingGame = Exclude<Prisma.UserGetPayload<{
-    include: {doubleOrNothingGame: true}
+    include: { doubleOrNothingGame: true }
 }>["doubleOrNothingGame"], null>;
 
 export const getGame = async (): Promise<DoubleOrNothingGame | null> => {

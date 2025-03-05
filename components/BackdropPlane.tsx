@@ -14,7 +14,7 @@ type Uniforms = {
 }
 
 const INITIAL_UNIFORMS: Uniforms = {
-    uTime: 0,
+    uTime: 2000,
     uColor1: Color.black().toThreeColor(),
     uColor2: Color.red().toThreeColor(),
 }
@@ -36,7 +36,7 @@ export default function BackdropPlane({ color1, color2 }: Props) {
     useFrame(({clock}) => {
         if(!shader.current) return;
 
-        shader.current.uTime = clock.elapsedTime;
+        shader.current.uTime = clock.elapsedTime + 2000;
         shader.current.uColor1 = color1.toThreeColor();
         shader.current.uColor2 = color2.toThreeColor();
     })

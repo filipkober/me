@@ -6,13 +6,21 @@ import { Button } from './ui/button';
 import { Input } from './ui/input';
 import DoubleOrNothing from './DoubleOrNothing';
 import { Label } from './ui/label';
-import { useSpecialEffectsContext } from "@/util/contexts/SpecialEffectsContext";
 import ShaderBackground from './ShaderBackground';
 import Color from '@/util/Color';
 
 interface Props {
     session: Session
 }
+
+const niceColorCombos = [
+  [Color.fromHex("#27221f"), Color.fromHex("#fd4857")],
+  [Color.fromHex("#701870"), Color.fromHex("#d0eb9b")],
+  [Color.fromHex("#368512"), Color.fromHex("#1e084d")],
+  [Color.fromHex("#4b0d2d"), Color.fromHex("#f76061")],
+  [Color.fromHex("#24317f"), Color.fromHex("#a34be5")],
+]
+
 export default function DoubleOrNothingPage({ session }: Props) {
 
   const [game, setGame] = useState<DoubleOrNothingGame | null>(null);
@@ -21,8 +29,6 @@ export default function DoubleOrNothingPage({ session }: Props) {
 
   const [color1, setColor1] = useState<Color>(Color.black());
   const [color2, setColor2] = useState<Color>(Color.black());
-
-  const { shootStar } = useSpecialEffectsContext();
 
   useEffect(() => {
     setColor1(Color.random());
@@ -53,7 +59,7 @@ export default function DoubleOrNothingPage({ session }: Props) {
         <Input type='color' onChange={e => setColor2(Color.fromHex(e.target.value))} value={color2.toHex()} />
         <span>{color2.toHex()}</span>
       </div>
-      {game ? <DoubleOrNothing game={game} setGame={setGame} setCoins={setCoins} shootStar={shootStar} /> : <div>
+      {game ? <DoubleOrNothing game={game} setGame={setGame} setCoins={setCoins}/> : <div>
         
         <Label htmlFor='bet'>Bet</Label>
         <Input type="number" placeholder="Bet" value={bet} onChange={e => setBet(Number(e.target.value))} id='bet' name='bet'/>
