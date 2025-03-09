@@ -8,6 +8,7 @@ import DoubleOrNothing from './DoubleOrNothing';
 import { Label } from './ui/label';
 import ShaderBackground from './ShaderBackground';
 import Color from '@/util/Color';
+import { randomElement } from '@/util/randomUtils';
 
 interface Props {
     session: Session
@@ -31,8 +32,9 @@ export default function DoubleOrNothingPage({ session }: Props) {
   const [color2, setColor2] = useState<Color>(Color.black());
 
   useEffect(() => {
-    setColor1(Color.random());
-    setColor2(Color.random());
+    const colorSet = randomElement(niceColorCombos);
+    setColor1(colorSet[0]);
+    setColor2(colorSet[1]);
     getGame().then(game => setGame(game));
   }, [])
 
