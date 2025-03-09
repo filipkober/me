@@ -1,9 +1,8 @@
 "use client"
 
 import Boids from "@/components/Boids";
-import SpecialEffects from "@/components/SpecialEffects";
 import StarLink from "@/components/StarLink";
-import { useSpecialEffects } from "@/util/hooks/useSpecialEffects";
+import { useSpecialEffectsContext } from "@/util/contexts/SpecialEffectsContext";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
 import { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider } from "@/components/ui/tooltip";
@@ -15,7 +14,7 @@ export default function HomePage() {
     const loggedIn = !!session.data;
     const isAdmin = session.data?.user?.admin;
   
-    const { canvasRef, shootStar, startStarShower, stopShootingStars } = useSpecialEffects();
+    const { startStarShower, stopShootingStars } = useSpecialEffectsContext();
 
     useEffect(() => {
 
@@ -56,7 +55,7 @@ export default function HomePage() {
       </div>
       <div className="sm:col-start-3 flex justify-center flex-col gap-4 sm:gap-64 relative mt-4 sm:mt-0">
         <h1 className="text-4xl font-bold sm:text-left sm:absolute lg:right-[22vw] sm:bottom-[30vw] text-nowrap text-center">
-          <StarLink href={"/fun"} shootStar={shootStar}>Fun</StarLink>
+          <StarLink href={"/fun"}>Fun</StarLink>
         </h1>
         <h1 className="text-4xl font-bold sm:text-left sm:absolute cursor-not-allowed lg:right-[20vw] text-nowrap text-center">
           <Link href={"/tools"}>Tools</Link>
@@ -83,7 +82,6 @@ export default function HomePage() {
       </div>
     </div>
   </div>
-  <SpecialEffects canvasRef={canvasRef} />
   </>
   )
 }

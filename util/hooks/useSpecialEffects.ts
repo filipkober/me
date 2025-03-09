@@ -7,12 +7,26 @@ import { FloatingCoin } from "../specialEffects/FloatingCoin";
 import Color from "../Color";
 import { ShootingStar } from "../specialEffects/ShootingStar";
 import { randomInt } from "../randomUtils";
+import Text from "../specialEffects/Text";
 // import Color from "../Color";
 
 export type ShootStarProps = {
     x: number;
     y: number;
     size?: number;
+}
+
+export type DrawTextProps = {
+    coordinates: Vector;
+    text: string;
+    size: number;
+    color: Color;
+    lifespan?: number;
+    outline?: {
+        color: Color;
+        width: number;
+    };
+    animate?: boolean;
 }
 
 export const useSpecialEffects = () => {
@@ -159,6 +173,31 @@ export const useSpecialEffects = () => {
         };
     }, [getContext, removeObject, addObject]);
 
+    const drawText = useCallback(({ text, coordinates, size, color, lifespan, outline, animate }: DrawTextProps) => {
+        const ctx = getContext();
+        if (!ctx || !canvasRef.current) return;
+
+        const textObject = new Text({
+            coordinates,
+            context: ctx,
+            height: size,
+            width: size,
+            text,
+            textSize: size,
+            color,
+            remove: lifespan ? {
+                lifespan,
+                deleteFn: () => removeObject(textObject.id)
+            } : undefined,
+            outline,
+            animate
+
+        });
+
+        addObject(textObject);
+        
+    }, [addObject, getContext, removeObject]);
+
     // loop
     useEffect(() => {
         const ctx = getContext();
@@ -185,5 +224,7 @@ export const useSpecialEffects = () => {
         }
     }, [clearCanvas, getContext]);
 
-    return { canvasRef, clearCanvas, shootStar, addObject, removeObject, drawCoin, startStarShower, stopShootingStars };
+    return { canvasRef, clearCanvas, shootStar, addObject, removeObject, drawCoin, startStarShower, stopShootingStars, drawText };
 }
+
+export type UseSpecialEffectsReturnType = ReturnType<typeof useSpecialEffects>;

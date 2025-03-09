@@ -1,4 +1,5 @@
 import DailyCoinsPage from "@/components/DailyCoinsPage";
+import SpecialEffectsWrapper from "@/components/SpecialEffectsWrapper";
 import { authOptions } from "@/types/authOptions";
 import { getServerSession } from "next-auth/next";
 import { redirect } from "next/navigation";
@@ -12,6 +13,8 @@ export default async function DailyCoins() {
     }
 
     return (
+        <SpecialEffectsWrapper>
         <DailyCoinsPage session={session} />
+        </SpecialEffectsWrapper>
     );
 }

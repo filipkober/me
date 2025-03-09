@@ -1,11 +1,13 @@
 "use client";
 
-import { ShootStarProps } from "@/util/hooks/useSpecialEffects";
+import { useSpecialEffectsContext } from "@/util/contexts/SpecialEffectsContext";
 import Link, { LinkProps } from "next/link";
 import { MouseEventHandler, TouchEventHandler } from "react";
 
-export default function StarLink({href, children, numberOfStars = 5, shootStar}: LinkProps & {children?: React.ReactNode | React.ReactNode[] | string} & {numberOfStars?: number, shootStar: (star: ShootStarProps) => void}) {
+export default function StarLink({href, children, numberOfStars = 5}: LinkProps & {children?: React.ReactNode | React.ReactNode[] | string} & {numberOfStars?: number}) {
   
+    const {shootStar} = useSpecialEffectsContext();
+    
     const shootStars: MouseEventHandler<HTMLAnchorElement> = (e) => {
         for(let i = 0; i < numberOfStars; i++) {
             shootStar({
