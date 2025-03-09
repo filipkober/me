@@ -51,16 +51,6 @@ export default function DoubleOrNothingPage({ session }: Props) {
     <div className='min-h-screen flex flex-col p-4 gap-4 items-center'>
       <h1 className="text-5xl font-bold">Double or Nothing</h1>
       <p className="text-2xl">you have {coins} coins :)</p>
-      <p>Color 1:</p>
-      <div className='flex gap-4 w-36'>
-      <Input type='color' onChange={e => setColor1(Color.fromHex(e.target.value))} value={color1.toHex()} />
-      <span>{color1.toHex()}</span>
-      </div>
-      <p>Color 2:</p>
-      <div className='flex gap-4 w-36'>
-        <Input type='color' onChange={e => setColor2(Color.fromHex(e.target.value))} value={color2.toHex()} />
-        <span>{color2.toHex()}</span>
-      </div>
       {game ? <DoubleOrNothing game={game} setGame={setGame} setCoins={setCoins}/> : <div>
         
         <Label htmlFor='bet'>Bet</Label>
