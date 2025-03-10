@@ -6,17 +6,23 @@ import { extend, useFrame, useThree } from '@react-three/fiber'
 import { useRef } from 'react'
 import { Color as ThreeColor } from 'three'
 import Color from '@/util/Color'
+import { randomElement } from '@/util/randomUtils'
 
 type Uniforms = {
     uTime: number
     uColor1: ThreeColor
     uColor2: ThreeColor
+    uSpiral: boolean
 }
 
+const initialUSpiral = randomElement([true, false])
+const initialUTime = initialUSpiral ? randomElement([0, 2000]) : 0;
+
 const INITIAL_UNIFORMS: Uniforms = {
-    uTime: 2000,
+    uTime: initialUTime,
     uColor1: Color.black().toThreeColor(),
     uColor2: Color.red().toThreeColor(),
+    uSpiral: initialUSpiral
 }
 
 const BackdropPlaneShader = shaderMaterial(INITIAL_UNIFORMS, vertex_shader, fragment_shader)
@@ -36,7 +42,7 @@ export default function BackdropPlane({ color1, color2 }: Props) {
     useFrame(({clock}) => {
         if(!shader.current) return;
 
-        shader.current.uTime = clock.elapsedTime + 2000;
+        shader.current.uTime = clock.elapsedTime + initialUTime;
         shader.current.uColor1 = color1.toThreeColor();
         shader.current.uColor2 = color2.toThreeColor();
     })

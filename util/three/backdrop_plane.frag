@@ -5,6 +5,7 @@ precision mediump float;
 uniform float uTime;
 uniform vec3 uColor1;
 uniform vec3 uColor2;
+uniform bool uSpiral;
 
 
 varying vec2 vUv;
@@ -28,7 +29,7 @@ vec2 spiralTransform(vec2 uv, float time) {
     );
 }
 
-float time_snoise(in vec2 st) {
+float spiral_snoise(in vec2 st) {
     vec2 spiraled = spiralTransform(st, uTime * 0.01);
     
     // Subtle secondary rotation
@@ -41,6 +42,14 @@ float time_snoise(in vec2 st) {
     return snoise(rotation * spiraled * 2.0);
 }
 
+float non_spiral_snoise(in vec2 st) {
+
+    float v0 = st.x - uTime * 0.1;
+    float v1 = st.y + sin(uTime * 0.1);
+
+    return snoise(vec2(v0, v1));
+}
+
 #define OCTAVES 4
 float fbm(in vec2 st) {
     float value = 0.0;
@@ -48,7 +57,11 @@ float fbm(in vec2 st) {
     float frequency = 0.4;
     
     for (int i = 0; i < OCTAVES; i++) {
-        value += amplitude * time_snoise(st * frequency);
+        if(uSpiral) {
+            value += amplitude * spiral_snoise(st * frequency);
+        } else {
+            value += amplitude * non_spiral_snoise(st * frequency);
+        }
         frequency *= 2.0;
         amplitude *= 0.5;
     }
