@@ -52,6 +52,18 @@ export default function DoubleOrNothing({ game, setGame, setCoins }: Props) {
           });
         }
       } else {
+        drawText({
+          text: "NOTHING",
+          coordinates: new Vector(window.innerWidth / 2 - (5 * 32), window.innerHeight / 2),
+          size: 64,
+          color: Color.red(),
+          lifespan: 200,
+          animate: true,
+          outline: {
+            color: Color.white(),
+            width: 2,
+          }
+        });
         setGame(null);
       }
     }
