@@ -14,7 +14,7 @@ interface BlogPostProps {
 }
 
 export default function BlogPost({ post, className, nolink = false }: BlogPostProps) {
-    const classes = cn('container border-2 border-white rounded-xl', className)
+    const classes = cn('container border-2 border-white rounded-xl overflow-clip', className)
     const date = post.date.toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' })
   return (
     <div className={classes}>

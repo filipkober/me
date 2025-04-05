@@ -5,6 +5,9 @@ import ServerTags from "@/components/ServerTags";
 import ServerPosts from "@/components/ServerPosts";
 import { Skeleton } from "@/components/ui/skeleton";
 import TagsSkeleton from "@/components/TagsSkeleton";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/types/authOptions";
+import Link from "next/link";
 
 export default async function Blog(
     props: {searchParams?: Promise<{ [key: string]: string | string[] | undefined}>}
@@ -13,9 +16,11 @@ export default async function Blog(
 
     const tags = searchParams?.tags ? (searchParams.tags as string).split(',') : undefined;
 
+    const session = await getServerSession(authOptions);
+
     return (
         <div className="container mx-auto pt-8 pb-8 px-2">
-            <h1 className="text-5xl text-center">Blog</h1>
+            <h1 className="text-5xl text-center">Blog {session?.user.admin && <Link href={'/admin/blog/post/new'} className="ml-2">🖊️</Link>}</h1>
 
             <form className="flex gap-2 lg:w-1/2 mx-auto mt-8" method="GET">
                 <Input placeholder="Search by title, description..." name="search" />

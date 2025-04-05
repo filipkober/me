@@ -2,12 +2,12 @@ import { useCallback, useEffect, useRef } from "react";
 import CanvasObject from "../specialEffects/CanvasObject";
 // import Ball from "../specialEffects/Ball";
 import Star from "../specialEffects/Star";
+import Text from "../specialEffects/Text";
 import Vector from "../Vector";
 import { FloatingCoin } from "../specialEffects/FloatingCoin";
 import Color from "../Color";
 import { ShootingStar } from "../specialEffects/ShootingStar";
 import { randomInt } from "../randomUtils";
-import Text from "../specialEffects/Text";
 // import Color from "../Color";
 
 export type ShootStarProps = {
