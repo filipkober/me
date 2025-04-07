@@ -20,7 +20,7 @@ export default async function Blog(
 
     return (
         <div className="container mx-auto pt-8 pb-8 px-2">
-            <h1 className="text-5xl text-center">Blog {session?.user.admin && <Link href={'/admin/blog/post/new'} className="ml-2">🖊️</Link>}</h1>
+            <h1 className="text-5xl text-center"><span className="gradient-text font-bold">Blog</span> {session?.user.admin && <Link href={'/admin/blog/post/new'} className="ml-2">🖊️</Link>}</h1>
 
             <form className="flex gap-2 lg:w-1/2 mx-auto mt-8" method="GET">
                 <Input placeholder="Search by title, description..." name="search" />

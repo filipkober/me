@@ -44,7 +44,7 @@ export default function NigditPage() {
     return (
         <div className="flex flex-col items-center gap-8 p-4">
             <div className="w-full py-10 flex flex-col items-center gap-2 bg-gradient-to-r from-black to-gray-950">
-                <h1 className="text-5xl font-bold text-gray-100">Nigdit</h1>
+                <h1 className="text-5xl font-bold gradient-text">Nigdit</h1>
                 <p className="text-xl text-gray-300">A social media platform</p>
             </div>
             

@@ -15,7 +15,7 @@ export default async function Page() {
 
   return (
     <div className="w-screen min-h-screen flex flex-col items-center gap-2 pb-16 lg:pb-0">
-      <h1 className="text-5xl font-bold my-4">Secrets Page</h1>
+      <h1 className="text-5xl font-bold my-4 gradient-text pb-2">Secrets Page</h1>
       <p className="text-2xl flex gap-2">Your coins: {session.user.coins} <Image src="/coin.gif" alt="Coin" width={22} height={22} className="w-[22px] h-[22px] my-auto" /></p>
       <p className="text-2xl">Your achievements:</p>
       <div className="flex flex-row gap-4 w-[80%] mt-4 justify-center flex-wrap">
