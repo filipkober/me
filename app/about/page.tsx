@@ -19,7 +19,7 @@ const AboutMe = () => {
 
     return (
         <div className="flex items-center flex-col mb-16 px-4">
-            <h1 className="mt-12 text-6xl mb-8 font-bold tracking-tight">About Me</h1>
+            <h1 className="mt-12 text-6xl mb-8 font-bold tracking-tight gradient-text">About Me</h1>
             <p className="md:max-w-2xl max-w-[90%] text-xl text-center leading-relaxed mb-10">
                 Hi! My name is <span className="font-semibold text-blue-300">Filip Kober</span> and I&apos;m a{n && "n"} {myAge} year old software developer from Poland 🇵🇱
             </p>

@@ -33,8 +33,8 @@ export default function HomePage() {
   return (
     <>
     <div className="w-screen h-screen relative p-16">
-    <h1 className="text-6xl text-center mb-12">
-      Filip Kober {isAdmin && <Link href={'/admin'}>⭐</Link>}
+    <h1 className="text-6xl text-center mb-12 ">
+      <span className="gradient-text font-bold">Filip Kober</span> {isAdmin && <Link href={'/admin'}>⭐</Link>}
     </h1>
     <div className="sm:grid sm:columns-3 md:mt-[20vh] lg:mt-0">
       <div className="sm:col-start-1 flex justify-center flex-col gap-4 sm:gap-64 relative">
