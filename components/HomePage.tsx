@@ -44,7 +44,7 @@ export default function HomePage() {
           </h1>
         </Link>
         <Link href={'./blog'} className="sm:text-right sm:absolute lg:left-[20vw]">
-        <h1 className="text-4xl font-bold  text-nowrap text-center transition-all duration-300 hover:scale-110 hover:text-blue-400 hover:drop-shadow-[0_0_15px_rgba(96,165,250,0.5)]">
+        <h1 className="text-4xl font-bold text-nowrap text-center transition-all duration-300 hover:scale-110 hover:text-blue-400 hover:drop-shadow-[0_0_15px_rgba(96,165,250,0.5)]">
           Blog
         </h1>
         </Link>
