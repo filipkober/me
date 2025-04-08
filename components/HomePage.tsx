@@ -39,33 +39,43 @@ export default function HomePage() {
     <div className="sm:grid sm:columns-3 md:mt-[20vh] lg:mt-0">
       <div className="sm:col-start-1 flex justify-center flex-col gap-4 sm:gap-64 relative">
         <Link href={'./about'}>
-          <h1 className="text-4xl font-bold sm:text-right sm:absolute lg:left-[22vw] sm:bottom-[30vw] text-nowrap text-center">
+          <h1 className="text-4xl font-bold sm:text-right sm:absolute lg:left-[22vw] sm:bottom-[30vw] text-nowrap text-center transition-all duration-300 hover:scale-110 hover:text-cyan-400 hover:drop-shadow-[0_0_15px_rgba(34,211,238,0.5)]">
             About Me
           </h1>
         </Link>
-        <h1 className="text-4xl font-bold sm:text-right sm:absolute lg:left-[20vw] text-nowrap text-center">
-          <Link href={'./blog'}>Blog</Link>
+        <Link href={'./blog'} className="sm:text-right sm:absolute lg:left-[20vw]">
+        <h1 className="text-4xl font-bold  text-nowrap text-center transition-all duration-300 hover:scale-110 hover:text-blue-400 hover:drop-shadow-[0_0_15px_rgba(96,165,250,0.5)]">
+          Blog
         </h1>
-        <h1 className="text-4xl font-bold sm:text-right sm:absolute cursor-not-allowed lg:left-[22vw] sm:top-[30vw] text-nowrap text-center">
-          <Link href={'./portfolio'}>Portfolio</Link>
+        </Link>
+        <Link href={'./portfolio'} className="sm:text-right sm:absolute lg:left-[22vw] sm:top-[30vw]">
+        <h1 className="text-4xl font-bold text-nowrap text-center transition-all duration-300 hover:scale-110 hover:text-purple-400 hover:drop-shadow-[0_0_15px_rgba(168,85,247,0.5)]">
+          Portfolio
         </h1>
+        </Link>
       </div>
       <div className="sm:flex justify-center items-center col-start-2 hidden">
         <Boids />
       </div>
       <div className="sm:col-start-3 flex justify-center flex-col gap-4 sm:gap-64 relative mt-4 sm:mt-0">
-        <h1 className="text-4xl font-bold sm:text-left sm:absolute lg:right-[22vw] sm:bottom-[30vw] text-nowrap text-center">
-          <StarLink href={"/fun"}>Fun</StarLink>
+      <StarLink href={"/fun"} className="sm:text-left sm:absolute lg:right-[22vw] sm:bottom-[30vw]">
+        <h1 className="text-4xl font-bold text-nowrap text-center transition-all duration-300 hover:scale-110 hover:text-amber-400 hover:drop-shadow-[0_0_15px_rgba(251,191,36,0.5)]">
+          Fun
         </h1>
-        <h1 className="text-4xl font-bold sm:text-left sm:absolute cursor-not-allowed lg:right-[20vw] text-nowrap text-center">
-          <Link href={"/tools"}>Tools</Link>
+        </StarLink>
+        <Link href={"/tools"} className="sm:text-left sm:absolute lg:right-[20vw]">
+        <h1 className="text-4xl font-bold text-nowrap text-center transition-all duration-300 hover:scale-110 hover:text-emerald-400 hover:drop-shadow-[0_0_15px_rgba(52,211,153,0.5)]">
+          Tools
         </h1>
+        </Link>
         <TooltipProvider>
           <Tooltip>
             <TooltipTrigger asChild>
-              <h1 className={"text-4xl font-bold sm:text-left sm:absolute lg:right-[22vw] sm:top-[30vw] text-nowrap text-center"}>
-                <Link href={loggedIn ? "/secrets" : '/account/login'}>Secrets</Link>
+            <Link href={loggedIn ? "/secrets" : '/account/login'} className="sm:text-left sm:absolute lg:right-[22vw] sm:top-[30vw]">
+              <h1 className={"text-4xl font-bold text-nowrap text-center transition-all duration-300 hover:scale-110 hover:text-rose-400 hover:drop-shadow-[0_0_15px_rgba(251,113,133,0.5)]"}>
+                Secrets
               </h1>
+              </Link>
             </TooltipTrigger>
             {!loggedIn && (
               <TooltipContent>

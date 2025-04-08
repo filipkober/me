@@ -29,7 +29,7 @@ const useAchievements = () => {
         if (!user) {
             toast({
                 title: "Error",
-                description: "Failed to award achievement",
+                description: "Failed to award achievement, please log in",
                 variant: "destructive"
             });
             return;
