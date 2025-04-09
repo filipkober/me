@@ -2,7 +2,7 @@
 
 import { CSSProperties, useEffect, useState } from "react";
 import "@/styles/Bounce.css"
-import Link from "next/link";
+import PrettyLinkBox from "@/components/PrettyLinkBox";
 
 const letters = "The Fun Page".split("");
 
@@ -33,13 +33,35 @@ export default function FunPage() {
             <h1 className="absolute mt-16" style={{left: `calc(50% - ${letters.length * (screenWide ? 1 : 0.65)}rem)`}}>
                 {spans}
             </h1>
-            <h2 className="text-3xl lg:text-4xl mt-48">links:</h2>
-            <ul className="text-2xl mt-4 list-disc list-outside">
-                <li><Link href="/fun/web-demo" className="text-blue-600 underline">Godot + React bridge demo</Link></li>
-                <li><Link href="/fun/daily" className="text-blue-600 underline">Claim your daily coins!</Link></li>
-                <li><Link href="/fun/random-thoughts" className="text-blue-600 underline">Random thoughts</Link></li>
-                <li><Link href="/fun/gambling/" className="text-blue-600 underline">Casino</Link></li>
-            </ul>
+            <PrettyLinkBox
+                title={{
+                    icon: "🪙",
+                    content: "Fun utilities",
+                }}
+                links={[
+                    {
+                        content: "Web demo",
+                        href: "/fun/web-demo",
+                        icon: "🌐",
+                    },
+                    {
+                        content: "Daily coins",
+                        href: "/fun/daily",
+                        icon: "💰",
+                    },
+                    {
+                        content: "Random thoughts",
+                        href: "/fun/random-thoughts",
+                        icon: "💭",
+                    },
+                    {
+                        content: "Casino",
+                        href: "/fun/gambling/",
+                        icon: "🎰",
+                    },
+                ]}
+                className="mt-48"
+            />
         </div>
     );
 }
