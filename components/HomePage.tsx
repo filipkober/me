@@ -72,7 +72,7 @@ export default function HomePage() {
           <Tooltip>
             <TooltipTrigger asChild>
             <Link href={loggedIn ? "/secrets" : '/account/login'} className="sm:text-left sm:absolute lg:right-[22vw] sm:top-[30vw]">
-              <h1 className={"text-4xl font-bold text-nowrap text-center transition-all duration-300 hover:scale-110 hover:text-rose-400 hover:drop-shadow-[0_0_15px_rgba(251,113,133,0.5)]"}>
+              <h1 className={"text-4xl font-bold text-nowrap text-center transition-all duration-300 hover:scale-110 hover:text-rose-400 hover:drop-shadow-[0_0_15px_rgba(251,113,133,0.5)]" + ( loggedIn ? "" : " cursor-not-allowed")}>
                 Secrets
               </h1>
               </Link>
@@ -83,7 +83,7 @@ export default function HomePage() {
                 You need to log in to access this page.
                 </p>
                 <p>
-                    click the to log in
+                    click the link to log in
                 </p>
               </TooltipContent>
             )}
