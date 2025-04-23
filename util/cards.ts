@@ -64,8 +64,7 @@ export const getBlackJackValues = (cards: Card[]) => {
         if (cardValue === "A") {
             aceCards.push(card);
         } else {
-            total += getBlackJackValue(card, cards.filter(c => c !== card));
-        }
+            total += getBlackJackValue(card, removeOneOccurrence(cards, card));
     }
     
     // Then handle Aces - count first Ace as 11 if possible, others as 1
