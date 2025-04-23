@@ -16,7 +16,7 @@ export default function BlackJackGamePage({ session }: Props) {
 
     const [game, setGame] = useState<Prisma.BlackJackGameGetPayload<object> | null>(null);
     const [coins, setCoins] = useState<number>(session.user.coins!);
-    const [bet, setBet] = useState<number>(0);
+    const [bet, setBet] = useState<number>(10);
 
     useEffect(() => {
         getGame().then(game => setGame(game));
