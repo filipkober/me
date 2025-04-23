@@ -39,13 +39,13 @@ describe('Caesar Cipher', () => {
 
 describe('Vigenere Cipher', () => {
   test('encrypts lowercase letters correctly', () => {
-    expect(vigenere('abcdef', 'key')).toBe('keydey');
-    expect(vigenere('attack', 'lemon')).toBe('lxmgcn');
+    expect(vigenere('abcdef', 'key')).toBe('kfanid');
+    expect(vigenere('attack', 'lemon')).toBe('lxfopv');
   });
 
   test('encrypts uppercase letters correctly', () => {
-    expect(vigenere('ABCDEF', 'KEY')).toBe('KEYDEY');
-    expect(vigenere('ATTACK', 'LEMON')).toBe('LXMGCN');
+    expect(vigenere('ABCDEF', 'KEY')).toBe('KFANID');
+    expect(vigenere('ATTACK', 'LEMON')).toBe('LXFOPV');
   });
 
   test('preserves non-alphabetic characters', () => {
@@ -53,11 +53,11 @@ describe('Vigenere Cipher', () => {
   });
 
   test('handles mixed case input and key', () => {
-    expect(vigenere('AtTaCk', 'LeMonS')).toBe('LxMgCx');
+    expect(vigenere('AtTaCk', 'LeMonS')).toBe('LxFoPc');
   });
 
   test('repeats the key for longer texts', () => {
-    expect(vigenere('defendtheeastwall', 'key')).toBe('nifyrnxliiecxuepp');
+    expect(vigenere('defendtheeastwall', 'key')).toBe('nidorbdlcoeqdayvp');
   });
 });
 

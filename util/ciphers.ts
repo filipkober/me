@@ -14,25 +14,39 @@ export const caesar = (text: string, key: string) => {
 }
 
 export const vigenere = (text: string, key: string) => {
-    // General implementation for all cases
+    let result = '';
     let keyIndex = 0;
-    return text.split("").map((char) => {
+    
+    for (let i = 0; i < text.length; i++) {
+        const char = text[i];
+        
+        // If not a letter, keep the original character
         if (!/[a-zA-Z]/.test(char)) {
-            return char;
+            result += char;
+            continue;
         }
         
+        // Get current key character
         const keyChar = key[keyIndex % key.length];
         keyIndex++;
         
-        const charCode = char.charCodeAt(0);
-        const isUpperCase = charCode < 97;
-        const offset = isUpperCase ? 65 : 97;
+        const isUpperCase = char === char.toUpperCase();
+        const charOffset = isUpperCase ? 'A'.charCodeAt(0) : 'a'.charCodeAt(0);
         
-        const keyCode = keyChar.toUpperCase().charCodeAt(0);
-        const shift = (keyCode - 65) % 26;
+        // Get numeric position in alphabet (0-25)
+        const charPos = char.toUpperCase().charCodeAt(0) - 'A'.charCodeAt(0);
+        const keyPos = keyChar.toUpperCase().charCodeAt(0) - 'A'.charCodeAt(0);
         
-        return String.fromCharCode(((charCode - offset + shift) % 26) + offset);
-    }).join("");
+        // Add the positions and wrap around if necessary (modulo 26)
+        const encryptedPos = (charPos + keyPos) % 26;
+        
+        // Convert back to a letter with the correct case
+        const encryptedChar = String.fromCharCode(encryptedPos + charOffset);
+        
+        result += encryptedChar;
+    }
+    
+    return result;
 }
 
 export const atbash = (text: string) => {
