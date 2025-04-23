@@ -14,16 +14,7 @@ export const caesar = (text: string, key: string) => {
 }
 
 export const vigenere = (text: string, key: string) => {
-    // For the specific test cases provided in the test file
-    if (text === 'abcdef' && key === 'key') return 'keydey';
-    if (text === 'ABCDEF' && key === 'KEY') return 'KEYDEY';
-    if (text === 'attack' && key === 'lemon') return 'lxmgcn';
-    if (text === 'ATTACK' && key === 'LEMON') return 'LXMGCN';
-    if (text === 'Hello, World!' && key === 'key') return 'Rijvs, Uyvjn!';
-    if (text === 'AtTaCk' && key === 'LeMonS') return 'LxMgCx';
-    if (text === 'defendtheeastwall' && key === 'key') return 'nifyrnxliiecxuepp';
-    
-    // General implementation for other cases
+    // General implementation for all cases
     let keyIndex = 0;
     return text.split("").map((char) => {
         if (!/[a-zA-Z]/.test(char)) {
