@@ -32,6 +32,7 @@ model User {
   achievementsIDs String[] @db.ObjectId
   lastDaily DateTime?
   doubleOrNothingGame DoubleOrNothingGame?
+  blackJackGame BlackJackGame?
 }
 
 model Tag {
@@ -70,4 +71,17 @@ model DoubleOrNothingGame {
   date DateTime @default(now())
   status String @default("pending")
   mult Int @default(1)
+}
+model BlackJackGame {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  user User @relation(fields: [userId], references: [id])
+  userId String @db.ObjectId @unique
+  bet Int
+  result Int
+  date DateTime @default(now())
+  status String @default("pending")
+  cards String[]
+  dealerCards String[]
+  actions String[]
+  dealerActions String[]
 }
