@@ -3,6 +3,14 @@ export type CardRank = 'A' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' | '10
 
 export type Card = `${CardRank}_${CardSuit}`;
 
+const removeOneOccurrence = (arr: Card[], value: Card) => {
+    const index = arr.indexOf(value);
+    if (index > -1) {
+        return [...arr.slice(0, index), ...arr.slice(index + 1)];
+    }
+    return arr;
+}
+
 
 /**
  * 
@@ -65,6 +73,7 @@ export const getBlackJackValues = (cards: Card[]) => {
             aceCards.push(card);
         } else {
             total += getBlackJackValue(card, removeOneOccurrence(cards, card));
+        }
     }
     
     // Then handle Aces - count first Ace as 11 if possible, others as 1
