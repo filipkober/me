@@ -13,17 +13,18 @@ export default function NavBreadcrumbs({className} : {className?: string}) {
         return null
     }
 
-    const cname = cn('bg-[hsl(var(--background))] p-2 rounded-xl', className)
+    const cname = cn('bg-[hsl(var(--background))] p-2 rounded-xl breadcrumbs', className)
 
   return (
     <Breadcrumb className={cname}>
-        <BreadcrumbList>
+        <BreadcrumbList className='max-w-[80vw] flex-nowrap'>
             {pathArray.map((pathFragment, index) => {
                 const path = pathArray.slice(1, index + 1).join('/')
+                const isLast = index === pathArray.length - 1
                 return (
                     <Fragment key={path}>
-                        <BreadcrumbItem>
-                            {index < pathArray.length - 1 ? (<BreadcrumbLink href={`/${path}`}>{pathFragment}</BreadcrumbLink>) : <span className='font-bold'>{pathFragment}</span>}
+                        <BreadcrumbItem className={isLast ? 'truncate' : ''}>
+                            {!isLast ? (<BreadcrumbLink href={`/${path}`}>{pathFragment}</BreadcrumbLink>) : <span className='font-bold truncate'>{pathFragment}</span>}
                         </BreadcrumbItem>
                         {index < pathArray.length - 1 && <BreadcrumbSeparator/>}
                     </Fragment>

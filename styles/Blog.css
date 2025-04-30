@@ -1,16 +1,93 @@
+/* Base heading styles */
 h1 {
-    @apply text-4xl font-bold;
+    @apply text-4xl font-bold mb-4;
 }
 h2 {
-    @apply text-3xl font-bold;
+    @apply text-3xl font-bold mt-8 mb-4;
 }
 h3 {
-    @apply text-2xl font-bold;
+    @apply text-2xl font-bold mt-6 mb-3;
 }
-p {
-    @apply text-justify;
+h4 {
+    @apply text-xl font-bold mt-4 mb-2;
 }
 
-ul {
-    @apply list-disc list-inside;
+/* Text elements */
+p {
+    @apply mb-4 text-gray-300 leading-relaxed;
+}
+
+a {
+    @apply text-blue-400 hover:text-blue-300 transition-colors duration-200;
+}
+
+blockquote {
+    @apply border-l-2 border-gray-600 pl-4 py-2 my-4 italic text-gray-400;
+}
+
+/* Lists */
+.list-bullet {
+    @apply list-disc list-inside mb-4 pl-5 space-y-2;
+}
+
+.list-numbered {
+    @apply list-decimal list-inside mb-4 pl-5 space-y-2;
+}
+
+.list-bullet > li, .list-decimal > li {
+    @apply text-gray-300;
+}
+
+/* Code blocks */
+/* pre {
+    @apply bg-gray-900 p-4 rounded-md my-4 overflow-x-auto text-sm;
+}
+
+code {
+    @apply bg-gray-900 px-1 py-0.5 rounded text-gray-300 font-mono text-sm;
+} */
+
+/* Table styles */
+table {
+    @apply w-full my-4 border-collapse;
+}
+
+th {
+    @apply bg-gray-900 text-left p-2 border border-gray-800;
+}
+
+td {
+    @apply border border-gray-800 p-2;
+}
+
+/* Images */
+img {
+    @apply rounded-md max-w-full h-auto my-4 mx-auto;
+}
+
+/* Horizontal rule */
+hr {
+    @apply my-8 border-gray-700;
+}
+
+/* Special styling for post content */
+.prose {
+    @apply text-gray-300;
+}
+
+.prose strong {
+    @apply text-white;
+}
+
+.prose em {
+    @apply text-gray-400;
+}
+
+/* Gradient text animation */
+.gradient-text {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-500;
+}
+
+.hljs {
+    overflow-x: scroll;;
 }
